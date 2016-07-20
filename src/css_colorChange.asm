@@ -183,6 +183,6 @@ print "\nROM Addr: "
 print ROM
 print "\nSize: "
 print SIZE
-print "\n\n"
+print " bytes\n\n"
 
 print "Included css_colorChange.asm\n\n"
