@@ -56,7 +56,7 @@ scope hacks_loader: {
 
 //make into it's own file, and include the table, loader, etc.
 // ROM 0x139420
-// 0x8013B1A0	JAL		0x8013A2A4
+// 0x8013B1A0: JAL  0x8013A2A4
 scope CT_load_wrapper: {
   subiu sp, sp, 0x0004
   sw    ra, 0x0000(sp)

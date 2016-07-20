@@ -54,11 +54,11 @@ scope CT_hook: {
   // during the FFA c-button handler
   origin 0x136890
   base 0x80138610
-  beql	t7, r0, ct_jump
+  beql  t7, r0, ct_jump
 
   origin 0x1368B0
   base 0x80138630
-  beql	t8, r0, ct_jump
+  beql  t8, r0, ct_jump
 
   // the jump to our loaded cycle colors routine
   origin 0x001368C0
