@@ -58,13 +58,13 @@ scope hacks_loader: {
 // ROM 0x139420
 // 0x8013B1A0: JAL  0x8013A2A4
 scope CT_load_wrapper: {
-  subiu sp, sp, 0x0004
+  subiu sp, sp, 0x0008
   sw    ra, 0x0000(sp)
   jal   hacks_loader
   ori   a0, r0, 0x0
   lw    ra, 0x0000(sp)
   j     0x8013A2A4
-  addiu sp, sp, 0x0004
+  addiu sp, sp, 0x0008
   // just jump to the original target, with the proper RA  and stack
 }
 

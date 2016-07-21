@@ -53,7 +53,7 @@ align(4)
 // the colors and shade. This is only active in Free-for-All
 // I might want to make a hook for TEAM MODE for shade only
 scope cycleColors: {
-  constant stack_size(0x2C)
+  constant stack_size(0x30)
 
   or    at, r0, sp           // Grab our frame pointer
   subiu sp, sp, stack_size   // 8 words [28 bytes] + 0xC for bad routines
