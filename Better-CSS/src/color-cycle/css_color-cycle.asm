@@ -1,8 +1,5 @@
 //bass-n64
 
-// arch n64.cpu
-// endian msb
-
 // requires (from main file; put in otherwise)
 // include "LIB/N64defs.inc"
 // ssbFuncs
@@ -29,13 +26,9 @@
 //  t2: max color index
 //----------------------------------
 
-// values to pass to the "file loader"
-constant ROM(0x00F5F500)
-constant RAM(0x80390000)
-variable SIZE(0)
 
-origin ROM
-base RAM
+// origin and base
+// are set in the "main" file/whatever includes this file
 
 // the max color index for each character
 // array is by character index
@@ -48,11 +41,10 @@ fill 4, 0
 align(4)
 
 
-
 // the actual routine for processing Z/R and L inputs to cycle through
 // the colors and shade. This is only active in Free-for-All
 // I might want to make a hook for TEAM MODE for shade only
-scope cycleColors: {
+scope cycle_colors: {
   constant stack_size(0x30)
 
   or    at, r0, sp           // Grab our frame pointer
@@ -127,7 +119,7 @@ scope cycleColors: {
   sw    t1, 0x0028(sp)     // store +/- on stack
   or    a0, r0, s3         // character index to a0
   or    a1, r0, s1         // player index to a1
-  jal   css.colorCompare   // call routine; t2(max color) trashed
+  jal   fn.css.colorCompare   // call routine; t2(max color) trashed
   or    a2, r0, s4         // color to a2
   beq   v0, r0, checkL     // if not matched, check for L
   lw    t1, 0x0028(sp)     //  recover +/-.
@@ -151,9 +143,9 @@ scope cycleColors: {
   sw    s4, 0x004C(s2)      // store color index
   sw    a2, 0x0050(s2)      // store shade index
   lw    a0, 0x0008(s2)      // needed pointer
-  jal   css.updateCharacterModel
+  jal   fn.css.updateCharacterModel
   or    a1, r0, s4          // load color to a1; shade is already a2
-  jal   ssb.playFGM         // play "clink" selection soundfx
+  jal   fn.ssb.playFGM      // play "clink" selection soundfx
   ori   a0, r0, 0x00A4
 
   long_exit:
@@ -173,16 +165,10 @@ scope cycleColors: {
   lw    a1,0x0028(sp)       // replacement line 2
 }
 
-
 // calculate new size by substracting current origin from rom size
 variable SIZE(origin() - ROM)
-print "\nColor Toggle DMA Info:\n\n"
-print "RAM Addr: "
-print RAM
-print "\nROM Addr: "
-print ROM
-print "\nSize: "
+
+print "Included css_color-cycle.asm\n"
+print "Compiled Size: "
 print SIZE
 print " bytes\n\n"
-
-print "Included css_colorChange.asm\n\n"

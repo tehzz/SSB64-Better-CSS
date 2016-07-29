@@ -1,0 +1,6 @@
+// CSS Data: 0x0
+dd CSS.DMA.ROM, CSS.DMA.RAM, CSS.DMA.SIZE
+align(4)
+
+
+print "Included DMA Hacks Table\n\n"

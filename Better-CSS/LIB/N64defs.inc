@@ -235,12 +235,6 @@ constant VI_NTSC_CLOCK(48681812) // NTSC: Hz = 48.681812 MHz
 constant VI_PAL_CLOCK(49656530)  // PAL:  Hz = 49.656530 MHz
 constant VI_MPAL_CLOCK(48628316) // MPAL: Hz = 48.628316 MHz
 
-macro align(size) { // Align Byte Amount
-  while (pc() % {size}) {
-    db 0
-  }
-}
-
 macro N64_INIT() { // Initialise N64 (Stop N64 From Crashing 5 Seconds After Boot)
   lui a0,PIF_BASE // A0 = PIF Base Register ($BFC00000)
   lli t0,8
