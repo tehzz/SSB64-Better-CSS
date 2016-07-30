@@ -103,7 +103,7 @@ scope dpad_alt_char_state: {
   addu  s0, at, s0            // full player struct pointer
   lw    at, 0x0080(s0)        // character selected?
   beq   at, r0, epilogue      // if not selected, go to epilogue
-  lw    s1, 0x0048(s0)        // grab character index
+  lw    s1, 0x0048(s0)        // BD; grab character index
 
   // D-PAD Checks. D-PAD Left or Right
   dpad_rl:

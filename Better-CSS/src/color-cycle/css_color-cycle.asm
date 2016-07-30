@@ -30,6 +30,9 @@
 // origin and base
 // are set in the "main" file/whatever includes this file
 
+// used for printing size of assembled routine
+evaluate assembledSize(origin())
+
 // the max color index for each character
 // array is by character index
 color_max_array:
@@ -165,10 +168,8 @@ scope cycle_colors: {
   lw    a1,0x0028(sp)       // replacement line 2
 }
 
-// calculate new size by substracting current origin from rom size
-variable SIZE(origin() - ROM)
+// calculate the total size of the assembled routine
+evaluate assembledSize(origin() - {assembledSize})
 
 print "Included css_color-cycle.asm\n"
-print "Compiled Size: "
-print SIZE
-print " bytes\n\n"
+print "Compiled Size: {assembledSize} bytes\n\n"
