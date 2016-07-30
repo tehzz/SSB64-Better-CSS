@@ -103,17 +103,15 @@ scope dpad_alt_char_state: {
   addu  s0, at, s0            // full player struct pointer
   lw    at, 0x0080(s0)        // character selected?
   beq   at, r0, epilogue      // if not selected, go to epilogue
-  nop
   lw    s1, 0x0048(s0)        // grab character index
 
   // D-PAD Checks. D-PAD Left or Right
   dpad_rl:
   // return character to normal
-  andi  at, t0, 0x0300
-  beq   at, r0, dpad_up
-  nop
+  andi  at, t0, 0x0300        // Left | Right 0x200 | 0x100
+  beq   at, r0, dpad_up       // if (l or r) continue
 
-  lui   a0, 0x8013
+  lui   a0, 0x8013            // branch delay
   ori   a0, a0, 0xB800        // load character name FGM base pointer
   sll   at, s1, 1             // character index * 2
   addu  a0, a0, at            // offset pointer by character
@@ -125,9 +123,8 @@ scope dpad_alt_char_state: {
   // polygon version
   andi  at, t0, 0x0800
   beq   at, r0, dpad_down     // if not UP, go check DOWN
-  nop
 
-  ori   a0, r0, FGM.FPT       // FGM = "FIGHT POLYGON TEAM"
+  ori   a0, r0, FGM.FPT       // BD; FGM = "FIGHT POLYGON TEAM"
   beq   r0, r0, update_state  // set alt-char-state to polygon
   ori   t1, r0, AltState.POLYGON
 
@@ -136,42 +133,36 @@ scope dpad_alt_char_state: {
   dpad_down: {
     MM_check:
     bne   s1, r0, DK_check      // if not Mario, check for DK
-    nop
 
-    ori   a0, r0, FGM.MM        // set FGM to  "METAL MARIO!"
+    ori   a0, r0, FGM.MM        // BD; set FGM to  "METAL MARIO!"
     beq   r0, r0, update_state
     ori   t1, r0, AltState.MM
 
     DK_check:
     ori   at, r0, 0x0002
     bne   s1, at, epilogue    // if not DK, don't change anything
-    nop
 
-    ori   a0, r0, FGM.GDK     // set FGM to "Giant Donkey Kong"
+    ori   a0, r0, FGM.GDK     // BD; set FGM to "Giant Donkey Kong"
     beq   r0, r0, update_state
     ori   t1, r0, AltState.GDK
   }
 
   update_state:
   // First, check if we need to update state...
-  li    s2, alt_char_state    // load alt_char_state address
-      //pseudo-instruction
+  li    s2, alt_char_state    // Psuedo-I; load alt_char_state address
   addu  s2, s2, a1            // offset by player
   lbu   t2, 0x0000(s2)        // current alt_char_state
-  beq   t1, t2, epilogue      // if current state = set state
+  beq   t1, t2, epilogue      // if current state = state to set
   nop                         // do nothing, else
-
-  sb    t1, 0x0000(s2)        // set alt-char-state byte for this player
-
   // play FGM to announce char state
   jal   fn.ssb.playFGM
-  nop
+  sb    t1, 0x0000(s2)        // set alt-char-state byte for this player
 
   // call pallet change routine
-  lw    a0, 0x0018(s0)        // needed, unknown pointer
+  lw    a0, 0x0018(s0)        // needed, unknown pointer from player struct
   lw    a1, 0x0004(fp)        // reload player index
   jal   fn.css.updatePlayerPanelPallet
-  ori   a2, r0, 0x1           // Eventually, MAN or CPU
+  ori   a2, r0, 0x1           // Eventually, MAN or CPU: lw a2, 0x84(s0)
 
   epilogue:
   lw    ra, 0x0014(sp)
