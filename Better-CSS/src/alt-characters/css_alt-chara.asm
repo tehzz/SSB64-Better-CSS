@@ -7,7 +7,7 @@
 // "LIB/N64defs.inc", bass macros, ssbFuncs, cssFuncs
 
 //grab size
-variable SIZE(origin())
+evaluate assembledSize(origin())
 
 scope custom_pallets: {
   align(8)
@@ -65,7 +65,7 @@ scope FGM {
 // Use D-PAD to change alt character state
 scope dpad_alt_char_state: {
   // return a {StackSize} for stack size in bytes
-  nonLeafStackSize(3)         //Standard MIPS Non-Leaf + 3 registers
+  nonLeafStackSize(4)         //Standard MIPS Non-Leaf + 4 registers
 
   replacement:
   // replacement instructions from hooking into this routine
@@ -90,6 +90,7 @@ scope dpad_alt_char_state: {
   sw    s0, 0x0018(sp)
   sw    s1, 0x001C(sp)
   sw    s8, 0x0020(sp)
+  sw    s2, 0x0024(sp)
   or    fp, r0, at            // fp is s8
 
   check_char_selected:
@@ -111,13 +112,12 @@ scope dpad_alt_char_state: {
   andi  at, t0, 0x0300
   beq   at, r0, dpad_up
   nop
+
   lui   a0, 0x8013
   ori   a0, a0, 0xB800        // load character name FGM base pointer
   sll   at, s1, 1             // character index * 2
   addu  a0, a0, at            // offset pointer by character
-  jal   fn.ssb.playFGM
   lhu   a0, 0x0000(a0)        // load character name FGM value
-
   beq   r0, r0, update_state
   ori   t1, r0, AltState.NONE
 
@@ -126,9 +126,8 @@ scope dpad_alt_char_state: {
   andi  at, t0, 0x0800
   beq   at, r0, dpad_down     // if not UP, go check DOWN
   nop
-  jal   fn.ssb.playFGM        // play "FIGTING POLYGON TEAM!" from 1p mode
-  ori   a0, r0, FGM.FPT
 
+  ori   a0, r0, FGM.FPT       // FGM = "FIGHT POLYGON TEAM"
   beq   r0, r0, update_state  // set alt-char-state to polygon
   ori   t1, r0, AltState.POLYGON
 
@@ -136,46 +135,53 @@ scope dpad_alt_char_state: {
   // set Metal Mario or Giant DK if applicable
   dpad_down: {
     MM_check:
-    bne   s1, r0, DK_check    // if not Mario, check for DK
-    ori   at, r0, 0x0002
+    bne   s1, r0, DK_check      // if not Mario, check for DK
+    nop
 
-    jal   fn.ssb.playFGM      // play "METAL MARIO!"
-    ori   a0, r0, FGM.MM
+    ori   a0, r0, FGM.MM        // set FGM to  "METAL MARIO!"
     beq   r0, r0, update_state
     ori   t1, r0, AltState.MM
 
     DK_check:
+    ori   at, r0, 0x0002
     bne   s1, at, epilogue    // if not DK, don't change anything
     nop
 
-    jal   fn.ssb.playFGM
-    ori   a0, r0, FGM.GDK
+    ori   a0, r0, FGM.GDK     // set FGM to "Giant Donkey Kong"
     beq   r0, r0, update_state
     ori   t1, r0, AltState.GDK
   }
 
   update_state:
-  lw   a1, 0x0004(fp)         // reload player index
-  li   t2, alt_char_state     // load alt_char_state address
+  // First, check if we need to update state...
+  li    s2, alt_char_state    // load alt_char_state address
       //pseudo-instruction
-  addu t2, t2, a1             // offset by player
-  sb   t1, 0x0000(t2)         // set alt-char-state byte for this player
-  // call pallet change routine?
-  lw   a0, 0x0018(s0)
-  jal  fn.css.updatePlayerPanelPallet
-  ori  a2, r0, 0x1
-  // a0 = 0x18(s0)
-  // a1 = player index 0x4(fp)
-  // a2 = Pallet Normal CPU or None (load)
+  addu  s2, s2, a1            // offset by player
+  lbu   t2, 0x0000(s2)        // current alt_char_state
+  beq   t1, t2, epilogue      // if current state = set state
+  nop                         // do nothing, else
+
+  sb    t1, 0x0000(s2)        // set alt-char-state byte for this player
+
+  // play FGM to announce char state
+  jal   fn.ssb.playFGM
+  nop
+
+  // call pallet change routine
+  lw    a0, 0x0018(s0)        // needed, unknown pointer
+  lw    a1, 0x0004(fp)        // reload player index
+  jal   fn.css.updatePlayerPanelPallet
+  ori   a2, r0, 0x1           // Eventually, MAN or CPU
 
   epilogue:
   lw    ra, 0x0014(sp)
   lw    s0, 0x0018(sp)
   lw    s1, 0x001C(sp)
   lw    s8, 0x0020(sp)
-  addiu sp, sp, {StackSize}   // get new stack space
+  lw    s2, 0x0024(sp)
+  addiu sp, sp, {StackSize}   // free our stack
 
-  lw    a0, 0x0000(sp)
+  lw    a0, 0x0000(sp)        // reload a0-3
   lw    a1, 0x0004(sp)
   lw    a2, 0x0008(sp)
   lw    a3, 0x000C(sp)
@@ -186,10 +192,8 @@ scope dpad_alt_char_state: {
   nop
 }
 
-//calc new size
-variable SIZE(origin() - SIZE)
+// calculate the total size of the assembled routine
+evaluate assembledSize(origin() - {assembledSize})
 
 print "Included css_alt-chara.asm\n"
-print "Compiled Size: "
-print SIZE
-print " bytes\n\n"
+print "Compiled Size: {assembledSize} bytes\n\n"
