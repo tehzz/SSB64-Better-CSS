@@ -26,3 +26,24 @@ macro printDMAInfo(variable ROM, variable RAM, evaluate SIZE) {
     }
     print "\n\n"
 }
+
+// Calculate stack size in bytes for a leaf routine
+macro leafStackSize(variable words) {
+  global evaluate StackSize(words * 4)
+  while {StackSize} % 8 != 0 {
+    global evaluate StackSize({StackSize} + 4)
+  }
+}
+
+// Calculate stack size in bytes for a non-leaf routine
+// eg, one that calls other functions,
+// so need to have 0x18 extra on stack
+//    0x0 to 0xC for the a0-3 registers
+//    0x10 is pad
+//    0x14 is for RA
+macro nonLeafStackSize(variable words) {
+  global evaluate StackSize(0x18 + words * 4)
+  while {StackSize} % 8 != 0 {
+    global evaluate StackSize({StackSize} + 4)
+  }
+}
