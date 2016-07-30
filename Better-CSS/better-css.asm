@@ -65,7 +65,7 @@ scope CSS {
   scope hooks {
     // color cycle hook
     include "src/color-cycle/cc-hook.asm"
-    // d-pad handler hook (combine later)
+    // d-pad handler hook (combine to big hooks file once all other hooks are done)
     include "src/alt-characters/hook_dpad-handler.asm"
   }
 }
