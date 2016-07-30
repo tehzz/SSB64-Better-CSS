@@ -36,7 +36,7 @@ scope custom_pallets: {
     dw 0xDEF7, 0xF7BD, 0xFFFF, 0xFFFF
     align(8)
   array:
-    dl polygon, polygon_cpu, gdk, gdk_cpu, mm, mm_cpu
+    dd polygon, polygon_cpu, gdk, gdk_cpu, mm, mm_cpu
     align(4)
 }
 
@@ -113,9 +113,9 @@ scope dpad_alt_char_state: {
   nop
   lui   a0, 0x8013
   ori   a0, a0, 0xB800        // load character name FGM base pointer
-  sll   at, a1, 1             // player index * 2
+  sll   at, s1, 1             // character index * 2
   addu  a0, a0, at            // offset pointer by character
-  jal   fn.sbb.playFGM
+  jal   fn.ssb.playFGM
   lhu   a0, 0x0000(a0)        // load character name FGM value
 
   beq   r0, r0, update_state

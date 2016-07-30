@@ -43,13 +43,18 @@ scope CSS {
     // Save begining offset/base for DMA-ing the code once on the css
     constant ROM(origin())
     constant RAM(pc())
-    // size is updated by every included file
+    // size is calculated after all includes
     variable SIZE(0)
 
     // --- Code to be DMA'd
     include "src/color-cycle/css_color-cycle.asm"
     align(4)
+    include "src/alt-characters/css_alt-chara.asm"
+    align(4)
     // --- End Code to be DMA'd
+
+    // get total size of DMA in bytes
+    variable SIZE(origin()-ROM)
 
     // --- Print out info on DMA stuff
     print "CSS DMA Parameters:\n"
@@ -60,6 +65,8 @@ scope CSS {
   scope hooks {
     // color cycle hook
     include "src/color-cycle/cc-hook.asm"
+    // d-pad handler hook (combine later)
+    include "src/alt-characters/hook_dpad-handler.asm"
   }
 }
 

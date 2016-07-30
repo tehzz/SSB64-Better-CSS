@@ -9,7 +9,7 @@
 // 80138318 lhu   t9, 0x0002(t8)  -> Get Unique Button Press
 // ..310 and ..314 are replaced in custom code
 
-origin 0x
+origin 0x136590
 base 0x80138310
 
 jal   CSS.DMA.dpad_alt_char_state

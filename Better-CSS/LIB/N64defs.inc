@@ -67,6 +67,8 @@ constant gp(28)
 constant sp(29)
 constant s8(30)
 constant ra(31)
+// Alternate name for s8 is fp / frame pointer
+constant fp(30)
 
 // N64 MIPS 4300 CP1 Floating Point Unit (FPU) Registers (COP1)
 constant f0(0)
