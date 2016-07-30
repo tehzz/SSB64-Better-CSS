@@ -159,7 +159,7 @@ scope dpad_alt_char_state: {
   li   t2, alt_char_state     // load alt_char_state address
       //pseudo-instruction
   addu t2, t2, a1             // offset by player
-  sb   t1, 0x0000(t2)         // set alt-char-state byte for this player to NONE
+  sb   t1, 0x0000(t2)         // set alt-char-state byte for this player
   // call pallet change routine?
   lw   a0, 0x0018(s0)
   jal  fn.css.updatePlayerPanelPallet

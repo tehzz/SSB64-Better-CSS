@@ -17,4 +17,4 @@ addu  t8, t6, t7      // Original Line 1
 
 
 //----------------------------------
-print "Included hook_dpad-handler.asm"
+print "Included hook_dpad-handler.asm\n\n"
