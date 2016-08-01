@@ -47,12 +47,7 @@ alt_char_state: {
   align(4)
 }
 // enum of alt character values
-scope AltState {
-  constant NONE(0x0)
-  constant POLYGON(0x1)
-  constant GDK(0x2)
-  constant MM(0x4)
-}
+include "alt-char-state-enum.inc"
 
 // FGM Values for a0 for playFGM call
 // Regular Character name will just use the built-in table
@@ -182,6 +177,7 @@ scope dpad_alt_char_state: {
   jr    ra
   nop
 }
+
 
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})
