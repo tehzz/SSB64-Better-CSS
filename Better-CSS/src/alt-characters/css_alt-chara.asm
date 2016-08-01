@@ -157,7 +157,7 @@ scope dpad_alt_char_state: {
   lw    a0, 0x0018(s0)        // needed, unknown pointer from player struct
   lw    a1, 0x0004(fp)        // reload player index
   jal   fn.css.updatePlayerPanelPallet
-  ori   a2, r0, 0x1           // Eventually, MAN or CPU: lw a2, 0x84(s0)
+  lw    a2, 0x0084(s0)        // MAN | CPU | Closed: lw a2, 0x84(s0)
 
   epilogue:
   lw    ra, 0x0014(sp)

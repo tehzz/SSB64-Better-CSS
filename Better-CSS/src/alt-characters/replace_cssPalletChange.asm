@@ -67,17 +67,20 @@ scope replacement_player_pallet_update {
   jr    ra
   sw    t3, 0x0030(v0)          // store our *pallet in the active img data for the panel
 
+  // ADD TEAM MODE CHECK / LOGIC....
+
   // oversize warning
   if ( origin() >  0x1315F4 ) {
+    evaluate overBy(origin() - 0x1315F4)
     print "Routine needs to end at 0x1315F4, \nbut instead ended at 0x"
-    printHex(origin()); print "\n"
+    printHex(origin()); print "\nOver-sized by {overBy} bytes\n"
     error "Replacement fn.css.updatePlayerPanelPallet is too large!\n"
   } else {
+    // nop the rest of the original routine
     while (origin() <= 0x1315F4) {
       dd 0x00000000
     }
   }
-  // else, zero out?
 }
 
 print "Included replace_cssPalletChange.asm\n\n"
