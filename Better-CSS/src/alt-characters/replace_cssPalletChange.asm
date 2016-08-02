@@ -17,6 +17,12 @@
 //--------------
 // t0 : player's alt-char-state
 // t3 : *pallet
+// if team mode
+//  t1 : Team Mode Off/On Byte
+//        -> Player Struct Pointer
+//  t2 : player index/ loop i
+//
+
 // if alt-state == NONE
 //    t1 : MAN or CPU Pallet Offset Array Base Addr
 //          -> Appropriate Player/MAN|CPU Pallet Offset
@@ -30,9 +36,15 @@ include "alt-char-state-enum.inc"
 origin 0x13152C
 base 0x801332AC
 scope replacement_player_pallet_update {
-  li    t0, CSS.DMA.alt_char_state    // Psuedo-I; load alt_char_state address
-  addu  t0, t0, a1                // offset by player
+  team_mode_check:
+  li    t0, CSS.DMA.alt_char_state    //load alt_char_state address
+  lui   t1, 0x8014
+  lw     t1, 0xBDA8(t1)            // team mode int (0 | 1)
+  bnez   t1, team_mode            // if (team mode){ ...
+  nop                             // } else {
+  addu  t0, t0, a1                // offset by player index (a1)
   lbu   t0, 0x0000(t0)            // current_state = alt_char_state
+                                  // }
   check_NONE:
   ori   at, r0, AltState.NONE
   beq   t0, at, else_normal_pallet
@@ -67,7 +79,23 @@ scope replacement_player_pallet_update {
   jr    ra
   sw    t3, 0x0030(v0)          // store our *pallet in the active img data for the panel
 
-  // ADD TEAM MODE CHECK / LOGIC....
+  team_mode:
+  // generate the proper t0 value by comparing pointer in a0
+  li    t1, 0x8013BA88        // t1 = *player1_struct
+  or    t2, r0, r0            // i = 0
+  team_mode_loop:             // do {
+  lw    at, 0x0018(t1)        // load pX 0x18 pointer
+  beq   at, a0, team_mode_alt_state   // break if player pointer = a0 pointer
+  addiu t1, t1, 0xBC          // inc to next *player_struct
+  sltiu at, t2, 0x0004
+  bnez  at, team_mode_loop    // } while ( i < 4 )
+  addiu t2, t2, 1             // i++
+
+  team_mode_alt_state:
+  addu  t0, t0, t2                // offset by actual player (i)
+  b     check_NONE                // endif (team mode)
+  lbu   t0, 0x0000(t0)            // get current AltState of player
+
 
   // oversize warning
   if ( origin() >  0x1315F4 ) {

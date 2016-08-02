@@ -155,6 +155,8 @@ scope dpad_alt_char_state: {
 
   // call pallet change routine
   lw    a0, 0x0018(s0)        // needed, unknown pointer from player struct
+  // Check for Team Mode...
+  // if team mode, send 0, 1, or 3 based on team
   lw    a1, 0x0004(fp)        // reload player index
   jal   fn.css.updatePlayerPanelPallet
   lw    a2, 0x0084(s0)        // MAN | CPU | Closed: lw a2, 0x84(s0)
