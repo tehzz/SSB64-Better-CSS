@@ -160,6 +160,8 @@ scope dpad_alt_char_state: {
   // use a "specialized" team index for a1 [00: red team; 01: blue; 03 green]
   if_teams:
   lui   t1, 0x8014
+  lw    t1, 0xBDA8(t1)         // team mode int (0 Off | 1 On)
+  beqz  t1, endif_teams_else   // if (team mode){ ...
   lui   t1, 0x8013
   ori   t1, 0xB7D8                // teams_pallet_indicies.array
   lw    at, 0x0040(s0)            // current_team
