@@ -88,8 +88,8 @@ scope replacement_player_pallet_update {
   beq   at, a0, team_mode_alt_state   // break if player pointer = a0 pointer
   addiu t1, t1, 0xBC          // inc to next *player_struct
   sltiu at, t2, 0x0004
-  bnez  at, team_mode_loop    // } while ( i < 4 )
-  addiu t2, t2, 1             // i++
+  bnez  at, team_mode_loop    // i++
+  addiu t2, t2, 1             // } while ( i < 4 )
 
   team_mode_alt_state:
   addu  t0, t0, t2                // offset by actual player (i)

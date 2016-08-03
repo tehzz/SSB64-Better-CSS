@@ -69,7 +69,7 @@ scope CSS {
     include "src/alt-characters/hook_dpad-handler.asm"
   }
 
-  //replacemnets for built in functions
+  //replacemnets for built-in routines
   scope replacements {
     include "src/alt-characters/replace_cssPalletChange.asm"
   }

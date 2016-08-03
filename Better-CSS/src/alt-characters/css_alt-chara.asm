@@ -155,9 +155,22 @@ scope dpad_alt_char_state: {
 
   // call pallet change routine
   lw    a0, 0x0018(s0)        // needed, unknown pointer from player struct
-  // Check for Team Mode...
-  // if team mode, send 0, 1, or 3 based on team
+  // check for team mode
+  // if it is team mode, don't use player index for a1
+  // use a "specialized" team index for a1 [00: red team; 01: blue; 03 green]
+  if_teams:
+  lui   t1, 0x8014
+  lui   t1, 0x8013
+  ori   t1, 0xB7D8                // teams_pallet_indicies.array
+  lw    at, 0x0040(s0)            // current_team
+  sll   at, at, 0x2               // current_team * 4
+  addu  t1, at, t1                // a1 = t_p_i[current_team]
+  b     end_else                  //
+  lw    a1, 0x0000(t1)        // } else {
+
+  endif_teams_else:
   lw    a1, 0x0004(fp)        // reload player index
+  end_else:                   // }
   jal   fn.css.updatePlayerPanelPallet
   lw    a2, 0x0084(s0)        // MAN | CPU | Closed: lw a2, 0x84(s0)
 
@@ -173,11 +186,10 @@ scope dpad_alt_char_state: {
   lw    a1, 0x0004(sp)
   lw    a2, 0x0008(sp)
   lw    a3, 0x000C(sp)
-  lw    t8, 0x0024(sp)        // Restore t8 for original code
 
   return:
   jr    ra
-  nop
+  lw    t8, 0x0024(sp)        // Restore t8 for original code
 }
 
 
