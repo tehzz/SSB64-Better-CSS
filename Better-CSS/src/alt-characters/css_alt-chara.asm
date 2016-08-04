@@ -194,27 +194,41 @@ scope dpad_alt_char_state: {
   lw    t8, 0x0024(sp)        // Restore t8 for original code
 }
 
-scope bbutton_reset_state: {
-  nonLeafStackSize(1)         // Grab space for 1 reg on stack
 
+// void resetAltState( uint player-index )
+// a0 : player index
+//-------------------
+// Register Map
+//-------------------
+// a0 : player index pinput]
+//      -> pointer for update pallet
+// a1 : player index
+// a2 : MAN | CPU panel state
+
+// t0 : alt_char_state base addr
+//      -> + a0 to offset for player
+//      then
+//      *Player_Struct
+// t1 : team mode checks
+
+scope resetAltState: {
+  nonLeafStackSize(0)         // Grab stack space for 0 saved regs
   prologue:
-  sw    a0, 0x0000(sp)
   subiu sp, sp, {StackSize}
   sw    ra, 0x0014(sp)
-  sw    s0, 0x0018(sp)
 
   reset_alt_state:
   ori   at, r0, 0xBC
-  multu at, a0
+  multu at, a0                // for player_struct pointer
   li    t0, alt_char_state
   ori   at, r0, AltState.NONE
-  addu  t0, t0, a0          // pointer to current player alt_char_state
-  sb    at, 0x0000(t0)      // set alt state to NONE
+  addu  t0, t0, a0            // pointer to current player alt_char_state
+  sb    at, 0x0000(t0)        // set alt state to NONE
 
   pointer_player_struct:
-  li    s0, 0x8013BA88
+  li    t0, 0x8013BA88
   mflo  at
-  addu  s0, s0, at          // generate player_struct pointer
+  addu  t0, t0, at          // generate player_struct pointer
 
   update_pallet:
   scope if_teams {
@@ -225,7 +239,7 @@ scope bbutton_reset_state: {
     if_true: {
       lui   t1, 0x8013
       ori   t1, 0xB7D8           // teams_pallet_indicies.array
-      lw    at, 0x0040(s0)       // current_team
+      lw    at, 0x0040(t0)       // current_team
       sll   at, at, 0x2          // current_team * 4
       addu  t1, at, t1           // a1 = t_p_i[current_team]
       b     endelse              //
@@ -236,17 +250,64 @@ scope bbutton_reset_state: {
     }
     endelse:                   // }
   }
-  lw    a0, 0x0018(s0)      // pointer to pallet image
+  lw    a0, 0x0018(t0)      // pointer to pallet image
   jal   fn.css.updatePlayerPanelPallet
-  lw    a2, 0x0084(s0)      // MAN | CPU | Closed: lw a2, 0x84(s0)
+  lw    a2, 0x0084(t0)      // MAN | CPU | Closed: lw a2, 0x84(s0)
 
   epilogue:
-  or    v0, r0, s0          // move player pointer to v0, as it's expected there
-  lw    s0, 0x0018(sp)
+  lw    ra, 0x0014(sp)
+  jr    ra
+  addiu sp, sp, {StackSize}
+}
+
+scope bButtonResetState: {
+  nonLeafStackSize(1)         // Grab space for 0 saved reg on stack
+
+  prologue:
+  ori   at, r0, 0xBC
+  multu a0, at
+  sw    a0, 0x0000(sp)
+  subiu sp, sp, {StackSize}
+  sw    ra, 0x0014(sp)
+  //replacement insructions to generate *Player_Struct
+  li    t0, 0x8013BA88
+  mflo  at
+  addu  t0, at, t0
+
+  reset_state:
+  jal   CSS.DMA.resetAltState   // a0 is already player index
+  sw    t0, 0x0018(sp)      // store pointer now; grab in epilogue
+
+  epilogue:
+  lw    v0, 0x0018(sp)      // put *Player_Struct in v0, as it's expected there
   lw    ra, 0x0014(sp)
   addiu sp, sp, {StackSize}
   jr    ra
-  lw    a0, 0x0000(sp)
+  lw    a0, 0x0000(sp)      // a0 is expected to be unchanged
+}
+
+// void closePanelResetState( uint player-index )
+// a0 : player index
+//-------------------
+// Register Map
+//-------------------
+// a0 : player index [input]
+//      -> soundfx for playFGM
+scope closePanelResetState: {
+  nonLeafStackSize(0)
+
+  subiu sp, sp, {StackSize}
+  sw    ra, 0x0014(sp)
+
+  jal   CSS.DMA.resetAltState
+  nop                     // a0 is already player index
+
+  jal   fn.ssb.playFGM       // replacement for hook-in code
+  ori   a0, r0, 0x00A7
+
+  lw    ra, 0x0014(sp)
+  jr    ra
+  addiu sp, sp, {StackSize}
 }
 
 // calculate the total size of the assembled routine

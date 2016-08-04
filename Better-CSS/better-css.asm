@@ -39,7 +39,11 @@ scope CSS {
   scope DMA {
     // Set beginning origin and base
     origin 0x00F5F500
-    base 0x80390000
+    base 0x80392A00
+    // other pc addresses:
+    // 0x8038F000
+    // 0x80392A00
+
     // Save begining offset/base for DMA-ing the code once on the css
     constant ROM(origin())
     constant RAM(pc())
@@ -69,6 +73,8 @@ scope CSS {
     include "src/alt-characters/hook_dpad-handler.asm"
     // b-button deselect character handler: resets alt-state when deselecting
     include "src/alt-characters/hook_b-deselect-handler.asm"
+    // close panel to reset alt-char state hook
+    include "src/alt-characters/hook_close-panel-reset.asm"
   }
 
   //replacemnets for built-in routines
@@ -78,6 +84,8 @@ scope CSS {
 }
 
 // insert the hack file loader
+// this is in constantly loaded memory space
+// -> right now: inserted over old debug strings
 scope loader {
   include "src/hack-loader/dma-loader.asm"
   scope hooks {

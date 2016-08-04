@@ -1,3 +1,7 @@
+//bass-n64
+//---------------------------
+// include description here!
+
 origin 0x136278
 base 0x80137FF8
 scope hook_b_button_deselect {
@@ -5,7 +9,7 @@ scope hook_b_button_deselect {
 
   subiu sp, sp, {StackSize}
   sw    ra, 0x0014(sp)
-  jal   CSS.DMA.bbutton_reset_state
+  jal   CSS.DMA.bButtonResetState
   nop
   lw    ra, 0x0014(sp)
   addiu sp, sp, {StackSize}
