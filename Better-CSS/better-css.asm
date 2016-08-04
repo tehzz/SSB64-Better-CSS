@@ -67,6 +67,8 @@ scope CSS {
     include "src/color-cycle/cc-hook.asm"
     // d-pad handler hook (combine to big hooks file once all other hooks are done)
     include "src/alt-characters/hook_dpad-handler.asm"
+    // b-button deselect character handler: resets alt-state when deselecting
+    include "src/alt-characters/hook_b-deselect-handler.asm"
   }
 
   //replacemnets for built-in routines

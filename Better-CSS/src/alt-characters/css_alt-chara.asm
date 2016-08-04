@@ -194,6 +194,60 @@ scope dpad_alt_char_state: {
   lw    t8, 0x0024(sp)        // Restore t8 for original code
 }
 
+scope bbutton_reset_state: {
+  nonLeafStackSize(1)         // Grab space for 1 reg on stack
+
+  prologue:
+  sw    a0, 0x0000(sp)
+  subiu sp, sp, {StackSize}
+  sw    ra, 0x0014(sp)
+  sw    s0, 0x0018(sp)
+
+  reset_alt_state:
+  ori   at, r0, 0xBC
+  multu at, a0
+  li    t0, alt_char_state
+  ori   at, r0, AltState.NONE
+  addu  t0, t0, a0          // pointer to current player alt_char_state
+  sb    at, 0x0000(t0)      // set alt state to NONE
+
+  pointer_player_struct:
+  li    s0, 0x8013BA88
+  mflo  at
+  addu  s0, s0, at          // generate player_struct pointer
+
+  update_pallet:
+  scope if_teams {
+    condition:
+    lui   t1, 0x8014
+    lw    t1, 0xBDA8(t1)        // team mode int (0 Off | 1 On)
+    beqz  t1, endif_else        // if (team mode){ ...
+    if_true: {
+      lui   t1, 0x8013
+      ori   t1, 0xB7D8           // teams_pallet_indicies.array
+      lw    at, 0x0040(s0)       // current_team
+      sll   at, at, 0x2          // current_team * 4
+      addu  t1, at, t1           // a1 = t_p_i[current_team]
+      b     endelse              //
+      lw    a1, 0x0000(t1)      // } else {
+    }
+    endif_else: {
+      or    a1, r0, a0          // move player index into a1
+    }
+    endelse:                   // }
+  }
+  lw    a0, 0x0018(s0)      // pointer to pallet image
+  jal   fn.css.updatePlayerPanelPallet
+  lw    a2, 0x0084(s0)      // MAN | CPU | Closed: lw a2, 0x84(s0)
+
+  epilogue:
+  or    v0, r0, s0          // move player pointer to v0, as it's expected there
+  lw    s0, 0x0018(sp)
+  lw    ra, 0x0014(sp)
+  addiu sp, sp, {StackSize}
+  jr    ra
+  lw    a0, 0x0000(sp)
+}
 
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})
