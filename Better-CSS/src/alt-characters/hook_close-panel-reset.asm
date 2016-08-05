@@ -17,3 +17,5 @@ scope hook_close_panel {
   jal   CSS.DMA.closePanelResetState
   or    a0, r0, s1            // move player index to a0, since a0 is free
 }
+
+print "Included hook_close-panel-reset.asm\n\n"

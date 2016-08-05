@@ -310,6 +310,37 @@ scope closePanelResetState: {
   addiu sp, sp, {StackSize}
 }
 
+// void pickUpTokenResetState( uint player-index, uint token-player index )
+// a0 : player index of cursor
+// a1 : player index of token being picked up
+//-------------------
+// Register Map
+//-------------------
+// a0 : player index of token being picked up
+// reset to input regs before calling original routine
+
+scope pickUpTokenResetState: {
+  // put into fn.css
+  constant pickUpToken(0x8013760C)
+  nonLeafStackSize(0)
+
+  subiu sp, sp, {StackSize}
+  sw    ra, 0x0014(sp)
+  sw    a0, {StackSize}(sp)
+  sw    a1, {StackSize}+4(sp)
+
+  jal   CSS.DMA.resetAltState   // reset the state of the player
+  or    a0, r0, a1              // whose token is being picked up
+
+  lw    a0, {StackSize}(sp)
+  jal   pickUpToken
+  lw    a1, {StackSize}+4(sp)
+
+  lw    ra, 0x0014(sp)
+  jr    ra
+  addiu sp, sp, {StackSize}
+}
+
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})
 

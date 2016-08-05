@@ -75,6 +75,8 @@ scope CSS {
     include "src/alt-characters/hook_b-deselect-handler.asm"
     // close panel to reset alt-char state hook
     include "src/alt-characters/hook_close-panel-reset.asm"
+    // when a player's token is picked up, reset that player's alt-char state
+    include "src/alt-characters/hook_pick-up-token.asm"
   }
 
   //replacemnets for built-in routines
