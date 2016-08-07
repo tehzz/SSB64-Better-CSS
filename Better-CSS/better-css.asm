@@ -81,9 +81,12 @@ scope CSS {
     include "src/alt-characters/hook_update-character.asm"
   }
 
-  //replacemnets for built-in routines
+  //replacements for built-in routines or simple, "built-in" hacks
   scope replacements {
+    // big alteration of a built-in routine
     include "src/alt-characters/replace_cssPalletChange.asm"
+    // on results screen, replace an illegal character value with a legal one
+    include "src/alt-characters/replace_result-screen-char-change.asm"
   }
 }
 
