@@ -77,6 +77,8 @@ scope CSS {
     include "src/alt-characters/hook_close-panel-reset.asm"
     // when a player's token is picked up, reset that player's alt-char state
     include "src/alt-characters/hook_pick-up-token.asm"
+    // change character index based on alt-state when going to SSS
+    include "src/alt-characters/hook_update-character.asm"
   }
 
   //replacemnets for built-in routines
