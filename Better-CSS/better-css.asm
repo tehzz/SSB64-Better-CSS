@@ -79,6 +79,8 @@ scope CSS {
     include "src/alt-characters/hook_pick-up-token.asm"
     // change character index based on alt-state when going to SSS
     include "src/alt-characters/hook_update-character.asm"
+    // Going from SSS back to CSS, restore legal character and perserve alt-state
+    include "src/alt-characters/hook_restore-char-css.asm"
   }
 
   //replacements for built-in routines or simple, "built-in" hacks
