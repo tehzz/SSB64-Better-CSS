@@ -16,5 +16,8 @@ jal   CSS.DMA.dpad_alt_char_state
 addu  t8, t6, t7      // Original Line 1
 
 
-//----------------------------------
-print "Included hook_dpad-handler.asm\n\n"
+//---------------------------
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_dpad-handler.asm\n"
+}

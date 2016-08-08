@@ -11,4 +11,7 @@ scope load_hook: {
   nop
 }
 
-print "Included css-hook.asm!\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included css-hook.asm for dma hack loader\n"
+}

@@ -64,4 +64,7 @@ scope CSS_load_wrapper: {
   // just jump to the original target, with the proper RA  and stack
 }
 
-print "Included dma-loader.asm\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included dma-loader.asm\n\n"
+}

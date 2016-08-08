@@ -20,4 +20,7 @@ scope CC_hook: {
   nop
 }
 
-print "Included cc-hook.asm\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included cc-hook.asm for color change hack\n"
+}

@@ -28,6 +28,8 @@ macro printDMAInfo(variable ROM, variable RAM, evaluate SIZE) {
 }
 
 // Calculate stack size in bytes for a leaf routine
+//    Since bass can't "return" a value, the global keyword
+//    creates a {StackSize} evaluate that can be used within the called scope
 macro leafStackSize(variable words) {
   global evaluate StackSize(words * 4)
   while {StackSize} % 8 != 0 {

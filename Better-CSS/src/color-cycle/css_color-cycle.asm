@@ -170,6 +170,8 @@ scope cycle_colors: {
 
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})
-
-print "Included css_color-cycle.asm\n"
-print "Compiled Size: {assembledSize} bytes\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included css_color-cycle.asm\n"
+  print "Compiled Size: {assembledSize} bytes\n\n"
+}

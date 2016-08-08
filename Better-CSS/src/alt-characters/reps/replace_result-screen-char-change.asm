@@ -60,6 +60,9 @@ scope result_screen {
   }
 }
 
-print "Included replace_result-screen-char-change.asm\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included replace_result-screen-char-change.asm\n"
+}
 // Should we check size...?
 // Empty space in ROM goes to ~0x158520 (technically + 0xC, but...)

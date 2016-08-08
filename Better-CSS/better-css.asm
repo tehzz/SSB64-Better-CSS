@@ -53,7 +53,7 @@ scope CSS {
     // --- Code to be DMA'd
     include "src/color-cycle/css_color-cycle.asm"
     align(4)
-    include "src/alt-characters/css_alt-chara.asm"
+    include "src/alt-characters/css_alt-characters.asm"
     align(4)
     // --- End Code to be DMA'd
 
@@ -61,34 +61,47 @@ scope CSS {
     variable SIZE(origin()-ROM)
 
     // --- Print out info on DMA stuff
-    print "CSS DMA Parameters:\n"
-    printDMAInfo(ROM, RAM, SIZE)
+    // Verbose Print info [-d v on cli]
+    if {defined v} {
+      print "CSS DMA Parameters:\n"
+      printDMAInfo(ROM, RAM, SIZE)
+    }
   }
 
   // hooks into our code
   scope hooks {
+    // Verbose Print info [-d v on cli]
+    if {defined v} {
+      print "Generating CSS hooks: \n\n"
+    }
+
     // color cycle hook
     include "src/color-cycle/cc-hook.asm"
     // d-pad handler hook (combine to big hooks file once all other hooks are done)
-    include "src/alt-characters/hook_dpad-handler.asm"
+    include "src/alt-characters/hooks/hook_dpad-handler.asm"
     // b-button deselect character handler: resets alt-state when deselecting
-    include "src/alt-characters/hook_b-deselect-handler.asm"
+    include "src/alt-characters/hooks/hook_b-deselect-handler.asm"
     // close panel to reset alt-char state hook
-    include "src/alt-characters/hook_close-panel-reset.asm"
+    include "src/alt-characters/hooks/hook_close-panel-reset.asm"
     // when a player's token is picked up, reset that player's alt-char state
-    include "src/alt-characters/hook_pick-up-token.asm"
+    include "src/alt-characters/hooks/hook_pick-up-token.asm"
     // change character index based on alt-state when going to SSS
-    include "src/alt-characters/hook_update-character.asm"
+    include "src/alt-characters/hooks/hook_update-character.asm"
     // Going from SSS back to CSS, restore legal character and perserve alt-state
-    include "src/alt-characters/hook_restore-char-css.asm"
+    include "src/alt-characters/hooks/hook_restore-char-css.asm"
   }
 
   //replacements for built-in routines or simple, "built-in" hacks
   scope replacements {
+    // Verbose Print info [-d v on cli]
+    if {defined v} {
+      print "\nGenerating In-Place Replacement CSS Code: \n\n"
+    }
+
     // big alteration of a built-in routine
-    include "src/alt-characters/replace_cssPalletChange.asm"
+    include "src/alt-characters/reps/replace_cssPalletChange.asm"
     // on results screen, replace an illegal character value with a legal one
-    include "src/alt-characters/replace_result-screen-char-change.asm"
+    include "src/alt-characters/reps/replace_result-screen-char-change.asm"
   }
 }
 
@@ -96,8 +109,18 @@ scope CSS {
 // this is in constantly loaded memory space
 // -> right now: inserted over old debug strings
 scope loader {
+  // Verbose Print info [-d v on cli]
+  if {defined v} {
+    print "\nGenerating DMA hack loader code: \n\n"
+  }
+
   include "src/hack-loader/dma-loader.asm"
   scope hooks {
     include "src/hack-loader/css-hook.asm"
   }
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "\nBetter-CSS Compiled! \n\n"
 }

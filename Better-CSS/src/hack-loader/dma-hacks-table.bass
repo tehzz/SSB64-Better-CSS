@@ -2,5 +2,7 @@
 dd CSS.DMA.ROM, CSS.DMA.RAM, CSS.DMA.SIZE
 align(4)
 
-
-print "Included dma-hacks-table.bass\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included dma-hacks-table.bass\n"
+}

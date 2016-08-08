@@ -35,4 +35,8 @@ scope hook_pickup_other_token {
   jal   CSS.DMA.pickUpTokenResetState
 }
 
-print "Included hook_pick-up-token.asm\n\n"
+//---------------------------
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_pick-up-token.asm\n"
+}

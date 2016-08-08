@@ -1,6 +1,7 @@
 //bass-n64
 //---------------------------
 // include description here!
+// include original code!!
 
 origin 0x136278
 base 0x80137FF8
@@ -9,7 +10,7 @@ scope hook_b_button_deselect {
 
   subiu sp, sp, {StackSize}
   sw    ra, 0x0014(sp)
-  jal   CSS.DMA.bButtonResetState
+  jal   CSS.DMA.b_reset_state
   nop
   lw    ra, 0x0014(sp)
   addiu sp, sp, {StackSize}
@@ -28,4 +29,7 @@ scope hook_b_button_deselect {
   }
 }
 
-print "Included hook_b-deselect-handler.asm\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_b-deselect-handler.asm\n"
+}

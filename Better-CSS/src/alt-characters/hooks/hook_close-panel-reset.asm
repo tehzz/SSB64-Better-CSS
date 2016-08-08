@@ -18,4 +18,8 @@ scope hook_close_panel {
   or    a0, r0, s1            // move player index to a0, since a0 is free
 }
 
-print "Included hook_close-panel-reset.asm\n\n"
+//---------------------------
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_close-panel-reset.asm\n"
+}

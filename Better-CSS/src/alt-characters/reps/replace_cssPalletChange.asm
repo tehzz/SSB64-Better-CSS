@@ -28,10 +28,10 @@
 //          -> Appropriate Player/MAN|CPU Pallet Offset
 //    t2 : Pallet File Base Addr
 // else
-//    t1 : custom_pallets.array Base Addr
+//    t1 : Custom_Pallets.array Base Addr
 
 // include alt-state enums
-include "alt-char-state-enum.inc"
+include "../inc/alt-char-state-enum.bass"
 
 origin 0x13152C
 base 0x801332AC
@@ -50,7 +50,7 @@ scope replacement_player_pallet_update {
   beq   t0, at, else_normal_pallet
                                   // if(current_state != NONE) {
   offset_alt_array:
-  li    t1, CSS.DMA.custom_pallets.array  // BD; *pallet = &custom_pallets.array
+  li    t1, CSS.DMA.Custom_Pallets.array  // BD; *pallet = &Custom_Pallets.array
   subiu at, t0, 0x0001            //  Alt.State--
   sll   at, at, 3                 //
   addu  t1, t1, at                //  i = alt_pallet.array + AltState * 8
@@ -111,4 +111,7 @@ scope replacement_player_pallet_update {
   }
 }
 
-print "Included replace_cssPalletChange.asm\n\n"
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included replace_cssPalletChange.asm\n"
+}

@@ -17,4 +17,8 @@ scope change_character {
   jal   CSS.DMA.changeCharIndex
 }
 
-print "Included hook_update-character.asm\n\n"
+//---------------------------
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_update-character.asm\n"
+}

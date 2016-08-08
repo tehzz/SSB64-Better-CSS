@@ -18,4 +18,8 @@ scope restore_char_CSS: {
   j   CSS.DMA.restore_legal_char_CSS
 }
 
-print "Included hook_restore-char-css.asm\n\n"
+//---------------------------
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included hook_restore-char-css.asm\n"
+}

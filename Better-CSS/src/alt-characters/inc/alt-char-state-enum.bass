@@ -6,3 +6,8 @@ scope AltState {
   constant GDK(0x2)
   constant MM(0x3)
 }
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included AltState enums! \n"
+}
