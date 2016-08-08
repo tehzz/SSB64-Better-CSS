@@ -1,6 +1,6 @@
 //bass-n64
 //==============================================================
-//      Character Select Screen Routines`
+//      Character Select Screen Routines
 //
 // Label Include for useful/known routines on the CSS
 // These are probably only callable when on the CSS
@@ -32,6 +32,18 @@ colorCompare:
 origin 0x64A48      //REPLACE!!!
 base 0x800E9248
 updateCharacterModel:
+
+// void Update Player Panel Pallet
+//-------------------------------
+// a0: u32 Unknown Poiner (0x18 + player struc)
+// a1: Player Index [0-3]
+// a2: Player State
+//      [0: In-Game Human; 1: In-Game CPU; 2: Not In-game]
+//-------------------------------
+// Note: this doesn't actually "close" the panel with 0x2 in a2
+origin 0x13152C
+base 0x801332AC
+updatePlayerPanelPallet:
 
 //--------------------------------------
 print "CSS Routines included!\n\n"

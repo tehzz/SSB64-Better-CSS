@@ -1,0 +1,51 @@
+// Align to Byte Amount
+macro align(size) {
+  while (pc() % {size}) {
+    db 0
+  }
+}
+
+// Prints a hex number to stdout
+macro printHex(variable value) {
+  if value > 15 {
+    printHex(value >> 4)
+  }
+  value = value & 15
+  putchar(value < 10 ? '0' + value : 'A' + value -10)
+}
+
+// Prints DMA info
+macro printDMAInfo(variable ROM, variable RAM, evaluate SIZE) {
+    print "ROM Addr: 0x"
+    printHex(ROM)
+    print "\nRAM Addr: 0x"
+    printHex(RAM)
+    print "\nTotal Size: {SIZE} byte"
+    if {SIZE} > 1 {
+      print "s"
+    }
+    print "\n\n"
+}
+
+// Calculate stack size in bytes for a leaf routine
+//    Since bass can't "return" a value, the global keyword
+//    creates a {StackSize} evaluate that can be used within the called scope
+macro leafStackSize(variable words) {
+  global evaluate StackSize(words * 4)
+  while {StackSize} % 8 != 0 {
+    global evaluate StackSize({StackSize} + 4)
+  }
+}
+
+// Calculate stack size in bytes for a non-leaf routine
+// eg, one that calls other functions,
+// so need to have 0x18 extra on stack
+//    0x0 to 0xC for the a0-3 registers
+//    0x10 is pad
+//    0x14 is for RA
+macro nonLeafStackSize(variable words) {
+  global evaluate StackSize(0x18 + words * 4)
+  while {StackSize} % 8 != 0 {
+    global evaluate StackSize({StackSize} + 4)
+  }
+}

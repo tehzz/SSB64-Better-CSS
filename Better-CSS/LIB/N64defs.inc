@@ -67,6 +67,8 @@ constant gp(28)
 constant sp(29)
 constant s8(30)
 constant ra(31)
+// Alternate name for s8 is fp / frame pointer
+constant fp(30)
 
 // N64 MIPS 4300 CP1 Floating Point Unit (FPU) Registers (COP1)
 constant f0(0)
@@ -234,12 +236,6 @@ constant EXT_SYS_AD($8000) // $80000000..$FFFFFFFF External SysAD Device
 constant VI_NTSC_CLOCK(48681812) // NTSC: Hz = 48.681812 MHz
 constant VI_PAL_CLOCK(49656530)  // PAL:  Hz = 49.656530 MHz
 constant VI_MPAL_CLOCK(48628316) // MPAL: Hz = 48.628316 MHz
-
-macro align(size) { // Align Byte Amount
-  while (pc() % {size}) {
-    db 0
-  }
-}
 
 macro N64_INIT() { // Initialise N64 (Stop N64 From Crashing 5 Seconds After Boot)
   lui a0,PIF_BASE // A0 = PIF Base Register ($BFC00000)
