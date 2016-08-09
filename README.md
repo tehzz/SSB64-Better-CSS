@@ -3,6 +3,9 @@
 
 [![Video Demonstration of Better CSS hack](http://img.youtube.com/vi/9BsBzrTdR4s/0.jpg)](https://www.youtube.com/watch?v=9BsBzrTdR4s)
 
+[The Hack in Action (Youtube Video)](https://www.youtube.com/watch?v=9BsBzrTdR4s)
+
+
 ### Features
 * Use **Z** and **R** to cycle through *all* of that character's possible costumes/colors, just like in later Smash games.
 * Use **L** to cycle through the three "Team Mode" shades: normal, light, and dark.
