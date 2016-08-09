@@ -1,11 +1,20 @@
-# SSB64: Cycle Colors on CSS
+# SSB64: Better CSS
+#### Adding the things Nintendo forgot
+
+[![Video Demonstration of Better CSS hack](http://img.youtube.com/vi/9BsBzrTdR4s/0.jpg)](https://www.youtube.com/watch?v=9BsBzrTdR4s)
+
 ### Features
-On the CSS with a character chosen, use **Z** and **R** to cycle through all of that character's possible costumes/colors, just like in later Smash games. Use **L** to cycle through the three "Team Mode" shades: normal, light, and dark.
+* Use **Z** and **R** to cycle through *all* of that character's possible costumes/colors, just like in later Smash games.
+* Use **L** to cycle through the three "Team Mode" shades: normal, light, and dark.
+* Use **D-PAD UP** to switch to the Polygon version of a character
+* Use **D-PAD DOWN** to use Metal Mario or Giant Donkey Kong
+* **D-PAD LEFT/RIGHT** to switch back to the original character
 
 ### Build
-Put a big endian SSB-U rom into a new folder called 'ROM'. (Or just change the included file in main.asm) Then, use [ARM9's fork of  the bass assembler with N64 support](https://github.com/ARM9/bass) to assemble `main.asm` into the SSB64 rom.
+Put a big endian SSB-U rom into a new folder called 'ROM'. (Or just change the included file in main.asm) Then, use [ARM9's fork of  the bass assembler with N64 support](https://github.com/ARM9/bass) to assemble `Better-CSS/better-css.asm` into the SSB64 rom. Change CRC, etc.
 
 ### Problems
-While the hack works as expected in Nemu and MupenPlus/Libretro, it currently soft-locks on console when Z, R, or L are pressed when a character is selected, i.e when the character's preview in the boxes at the bottom of the screen are to be updated/re-drawn.
+This release seems to be bug free! Console and emulator play both seem to work well.
 
-Adjusting the stack size to be double-word aligned (divisble by 0x8) makes the code work on console. Thanks to bit for the fix!
+### Future Features?
+* Change CPU characters to unselectable variants by "dropping" the CPU token with a D-PAD
