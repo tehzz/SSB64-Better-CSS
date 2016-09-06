@@ -106,7 +106,7 @@ scope replacement_player_pallet_update {
   } else {
     // nop the rest of the original routine
     while (origin() <= 0x1315F4) {
-      dd 0x00000000
+      dw 0x00000000
     }
   }
 }

@@ -24,7 +24,7 @@ scope hook_b_button_deselect {
   } else {
     // nop the rest of the original routine
     while (origin() <= 0x136294) {
-      dd 0x00000000
+      dw 0x00000000
     }
   }
 }
