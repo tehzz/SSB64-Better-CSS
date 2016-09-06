@@ -38,11 +38,11 @@ align(4)
 // Custom Pallets
 include "dma/custom-pallets.bass"
 align(4)
-// the AltState for each player 0-3
-alt_char_state: {
-  db 0, 0, 0, 0
-}
-align(4)
+
+// initialization state for alt_char_state
+constant init_acs(0x800002A8)
+// the AltState for each player 0-3 (1 byte per player)
+constant alt_char_state(init_acs + 0x4)
 
 //---------------------------
 // .text assemble sections
@@ -74,6 +74,9 @@ include "dma/reset-state-fns.asm"
 
 // void changeCharIndex()
 include "dma/changeCharIndex.asm"
+
+// void initAltState()
+include "dma/initAltState.asm"
 
 //----end .text--------------
 // Verbose Print info [-d v on cli]

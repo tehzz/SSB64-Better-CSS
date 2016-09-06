@@ -54,14 +54,21 @@ scope hacks_loader: {
 // Original Code at ROM 0x139420
 // 0x8013B1A0: JAL  0x8013A2A4
 scope CSS_load_wrapper: {
-  subiu sp, sp, 0x0008
-  sw    ra, 0x0000(sp)
-  jal   hacks_loader
+  nonLeafStackSize(0)
+
+  subiu sp, sp, {StackSize}
+  sw    ra, 0x0014(sp)
+  jal   hacks_loader      // DMA our code for the CSS
   ori   a0, r0, 0x0       // index for CSS codes is 0x0
-  lw    ra, 0x0000(sp)
-  j     0x8013A2A4
-  addiu sp, sp, 0x0008
+
+  //initialize the altstate array for holding the players' AltState enum
+  jal   CSS.DMA.initAltState
+  nop
+
   // just jump to the original target, with the proper RA  and stack
+  lw    ra, 0x0014(sp)
+  j     0x8013A2A4
+  addiu sp, sp, {StackSize}
 }
 
 // Verbose Print info [-d v on cli]

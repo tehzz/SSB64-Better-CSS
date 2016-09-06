@@ -39,7 +39,8 @@ scope CSS {
   scope DMA {
     // Set beginning origin and base
     origin 0x00F5F500
-    base 0x80392A00
+    base 0x80392A00  
+    // ^ might want to change to 0x80392E00 based on "ssb.malloc" values for CSS
     // other pc addresses:
     // 0x8038F000
     // 0x80392A00
