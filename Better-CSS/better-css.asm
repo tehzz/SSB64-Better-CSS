@@ -58,10 +58,6 @@ scope DMA {
     constant RAM(pc())
     variable SIZE(0)
 
-    print "Origin and Pc Location before DMA: \n"
-    print "0x"; printHex(origin()); print "\n"
-    print "0x"; printHex(pc()); print "\n"
-
     //---Code to be DMA'd:
     // Note: The ASM files include the DMA'd routine,
     // and the hook to that routine from the natural code flow
@@ -70,9 +66,6 @@ scope DMA {
     include "src/alt-characters/css_alt-characters.asm"
     align(4)
     //---End Code to Be DMA'd
-    print "Origin and Pc Location after DMA: \n"
-    print "0x"; printHex(origin()); print "\n"
-    print "0x"; printHex(pc()); print "\n"
 
     // update our SIZE variable
     variable SIZE(origin()-ROM)

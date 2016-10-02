@@ -31,17 +31,7 @@
 // given by other code. For hook, save
 // those ROM/RAM addrs and restore after
 
-print "Origin/Base/PC before push in css_color-cycle:\n"
-print "0x"; printHex(origin()); print "\n"
-print "0x"; printHex(base()); print "\n"
-print "0x"; printHex(pc()); print "\n"
-
 pushvar pc
-
-print "Origin/Base/PC after push in css_color-cycle:\n"
-print "0x"; printHex(origin()); print "\n"
-print "0x"; printHex(base()); print "\n"
-print "0x"; printHex(pc()); print "\n"
 
 scope CC_hook {
   // grab space to allow for a JAL
@@ -62,17 +52,7 @@ scope CC_hook {
   nop
 }
 
-print "Origin/Base/PC before pull in css_color-cycle:\n"
-print "0x"; printHex(origin()); print "\n"
-print "0x"; printHex(base()); print "\n"
-print "0x"; printHex(pc()); print "\n"
-
 pullvar pc
-
-print "Origin/Base/PC after pull in css_color-cycle:\n"
-print "0x"; printHex(origin()); print "\n"
-print "0x"; printHex(base()); print "\n"
-print "0x"; printHex(pc()); print "\n"
 
 //---End Hook----------------
 
