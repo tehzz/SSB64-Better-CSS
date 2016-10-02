@@ -1,4 +1,5 @@
 //bass-n64
+//ADDED TO DMA'D CODE
 //---------------------------
 // When starting a game/going to the SSS
 // change a player's character based on the alt-char-state

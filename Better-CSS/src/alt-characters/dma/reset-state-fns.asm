@@ -1,5 +1,65 @@
 //bass-n64
 
+//---Begin Hooks---------------------------------
+//---------------------------
+// When a player token is picked up,
+// reset the alt-char-state
+
+// Original Code:
+// jal   0x801377E4
+// or    a0, s2, r0
+//---------------------------
+// Hook that JAL to our replacment routine that can reset the alt-char-state,
+// and we can call that routine (which picks up the token)
+// a0 : player index of cursor
+// a1 : player index of token being picked up
+// we only want to replace one line, the JAL
+// This is for picking up your own token
+
+pushvar pc
+origin 0x135A24
+base 0x801377A4
+
+scope hook_pickup_own_token {
+  jal   pickUpTokenResetState
+}
+
+
+// Original Code:
+// jal   0x801377E4
+// or    a0, s2, r0
+//---------------------------
+// This is for picking up other player's token
+
+origin 0x135A64
+base 0x801377E4
+
+scope hook_pickup_other_token {
+  jal   pickUpTokenResetState
+}
+
+//---------------------------
+// When a player panel at the bottom of the screen is closed,
+// reset the alt-char-state
+
+// Original Code:
+// jal    ssb.playFGM
+// addiu  a0, r0, 0x00A7
+//---------------------------
+// Hook that JAL to our replacment routine that can reset the alt-char-state,
+// and then play that soundfx
+
+origin 0x1349BC
+base 0x8013673C
+
+scope hook_close_panel {
+  jal   closePanelResetState
+  or    a0, r0, s1            // move player index to a0, since a0 is free
+}
+
+pullvar pc
+//---End Hooks-----------------------------------
+
 // void resetAltState( uint player-index )
 // a0 : player index
 // Set's a players alt-char-state to NONE, and refreshs the pallet bg
@@ -79,7 +139,7 @@ scope closePanelResetState: {
   subiu sp, sp, {StackSize}
   sw    ra, 0x0014(sp)
 
-  jal   CSS.DMA.resetAltState
+  jal   resetAltState
   nop                     // a0 is already player index
 
   jal   fn.ssb.playFGM       // replacement for hook-in code
@@ -109,7 +169,7 @@ scope pickUpTokenResetState: {
   sw    a0, {StackSize}(sp)
   sw    a1, {StackSize}+4(sp)
 
-  jal   CSS.DMA.resetAltState   // reset the state of the player
+  jal   resetAltState   // reset the state of the player
   or    a0, r0, a1              // whose token is being picked up
 
   lw    a0, {StackSize}(sp)

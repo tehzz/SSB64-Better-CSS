@@ -21,9 +21,6 @@ include "dma-hacks-table.bass"
 // Inputs
 // a0: Hack Index to be DMA'd
 scope hacks_loader: {
-  // ssb.managedDMA uses two more words than it should
-  // 2 reg + 0x8 = 0x10; start at 0x8
-  // MAKE A LEAF/NON-LEAF STACK MACRO
   subiu sp, sp, 0x10
   sw    ra, 0x0008(sp)
   sw    s0, 0x000C(sp)
@@ -62,7 +59,7 @@ scope CSS_load_wrapper: {
   ori   a0, r0, 0x0       // index for CSS codes is 0x0
 
   //initialize the altstate array for holding the players' AltState enum
-  jal   CSS.DMA.initAltState
+  jal   DMA.CSS.initAltState
   nop
 
   // just jump to the original target, with the proper RA  and stack

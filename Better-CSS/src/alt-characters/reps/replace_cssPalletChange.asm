@@ -37,7 +37,7 @@ origin 0x13152C
 base 0x801332AC
 scope replacement_player_pallet_update {
   team_mode_check:
-  li    t0, CSS.DMA.alt_char_state    //load alt_char_state address
+  li    t0, DMA.CSS.alt_char_state    //load alt_char_state address
   lui   t1, 0x8014
   lw     t1, 0xBDA8(t1)            // team mode int (0 | 1)
   bnez   t1, team_mode            // if (team mode){ ...
@@ -50,7 +50,7 @@ scope replacement_player_pallet_update {
   beq   t0, at, else_normal_pallet
                                   // if(current_state != NONE) {
   offset_alt_array:
-  li    t1, CSS.DMA.Custom_Pallets.array  // BD; *pallet = &Custom_Pallets.array
+  li    t1, DMA.CSS.Custom_Pallets.array  // BD; *pallet = &Custom_Pallets.array
   subiu at, t0, 0x0001            //  Alt.State--
   sll   at, at, 3                 //
   addu  t1, t1, at                //  i = alt_pallet.array + AltState * 8

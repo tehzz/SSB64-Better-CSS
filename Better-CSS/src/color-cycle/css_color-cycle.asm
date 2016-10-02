@@ -1,15 +1,14 @@
 //bass-n64
-
-// requires (from main file; put in otherwise)
-// include "LIB/N64defs.inc"
-// ssbFuncs
-// cssFuncs
-
-//---Color Cycle on the CSS
+//
+//---Color Cycle on the CSS----------------------
 // Press Z or R to cycle through all colors for a character on the CSS
 // Press L to cycle through shade!
-
-//---Register Map
+//
+//-----requires (from main file; put in otherwise)
+// ssbFuncs
+// cssFuncs
+//
+//-----Register Map
 //  s8: frame pointer ()
 //      -> save sp before sub
 //  s0: button pointer
@@ -26,23 +25,75 @@
 //  t2: max color index
 //----------------------------------
 
+//---Hook--------------------
+// Routine is designed to be
+// DMA'd, so ROM/RAM addresses are
+// given by other code. For hook, save
+// those ROM/RAM addrs and restore after
 
-// origin and base
-// are set in the "main" file/whatever includes this file
+print "Origin/Base/PC before push in css_color-cycle:\n"
+print "0x"; printHex(origin()); print "\n"
+print "0x"; printHex(base()); print "\n"
+print "0x"; printHex(pc()); print "\n"
 
+pushvar pc
+
+print "Origin/Base/PC after push in css_color-cycle:\n"
+print "0x"; printHex(origin()); print "\n"
+print "0x"; printHex(base()); print "\n"
+print "0x"; printHex(pc()); print "\n"
+
+scope CC_hook {
+  // grab space to allow for a JAL
+  // during the FFA c-button handler
+  origin 0x136890
+  base 0x80138610
+  beql  t7, r0, cc_jump
+
+  origin 0x1368B0
+  base 0x80138630
+  beql  t8, r0, cc_jump
+
+  // the jump to our DMA'd cycle colors routine
+  origin 0x1368C0
+  base 0x80138640
+  cc_jump:
+  jal   cycle_colors
+  nop
+}
+
+print "Origin/Base/PC before pull in css_color-cycle:\n"
+print "0x"; printHex(origin()); print "\n"
+print "0x"; printHex(base()); print "\n"
+print "0x"; printHex(pc()); print "\n"
+
+pullvar pc
+
+print "Origin/Base/PC after pull in css_color-cycle:\n"
+print "0x"; printHex(origin()); print "\n"
+print "0x"; printHex(base()); print "\n"
+print "0x"; printHex(pc()); print "\n"
+
+//---End Hook----------------
+
+//---DMA'd Routine-----------
+//--debug info----------
 // used for printing size of assembled routine
 evaluate assembledSize(origin())
 
+//--.data section-------
 // the max color index for each character
 // array is by character index
+
 color_max_array:
 db 0x04, 0x03, 0x04, 0x04
 db 0x03, 0x03, 0x05, 0x05
 db 0x04, 0x04, 0x05, 0x03
-// space and align to 32bit
+// space and ensure PC alignment
 fill 4, 0
 align(4)
 
+//--end .data section--------
 
 // the actual routine for processing Z/R and L inputs to cycle through
 // the colors and shade. This is only active in Free-for-All
@@ -167,6 +218,8 @@ scope cycle_colors: {
   jr    ra                  // return to original code flow
   lw    a1,0x0028(sp)       // replacement line 2
 }
+
+//---End DMA'd Routine-------
 
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})

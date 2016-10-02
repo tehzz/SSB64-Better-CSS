@@ -1,4 +1,5 @@
 //bass-n64
+//ADDED to DMA Code
 //---------------------------
 // When a player panel at the bottom of the screen is closed,
 // reset the alt-char-state

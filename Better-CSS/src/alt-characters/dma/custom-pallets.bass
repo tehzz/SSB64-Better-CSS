@@ -4,7 +4,7 @@
 //-----------------
 // This are 4 bit CI (16 color) pallets of 5551 RGBA values
 // I've only put 8 of the colors, since that's all that are used
-// 8-byte aligned because Nintendo's are
+// 8-byte aligned because Nintendo's original plates are.
 
 
 scope Custom_Pallets: {

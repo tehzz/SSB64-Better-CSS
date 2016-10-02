@@ -20,6 +20,7 @@
 //--Defs---------------------
 //grab current origin for DMA size calcs
 evaluate assembledSize(origin())
+
 // AltState character ENUMs
 //    Used to repressent the unselectable characters on the CSS
 include "inc/alt-char-state-enum.bass"

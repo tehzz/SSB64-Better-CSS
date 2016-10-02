@@ -1,5 +1,29 @@
 //bass-n64
 
+//---Begin Hook----------------------------------
+//---------------------------
+// When starting a game/going to the SSS
+// change a player's character based on the alt-char-state
+
+// Original Code:
+// At 0x8013AAB0:
+// jal   0x8013A8B8
+// sw    t7, 0xBDA4(at)
+//---------------------------
+// Hook that JAL to our replacement routine
+// No inputs into that routine, or into our own
+
+pushvar pc
+origin 0x138D30
+base 0x8013AAB0
+scope change_character {
+  jal   changeCharIndex
+}
+
+pullvar pc
+//---End Hook------------------------------------
+
+
 // void changeCharIndex()
 //-------------------
 // Register Map

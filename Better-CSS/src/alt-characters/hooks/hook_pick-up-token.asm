@@ -1,4 +1,5 @@
 //bass-n64
+// ADDED TO DMA CODE
 //---------------------------
 // When a player token is picked up,
 // reset the alt-char-state

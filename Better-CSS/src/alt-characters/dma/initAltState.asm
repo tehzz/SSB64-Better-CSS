@@ -3,6 +3,7 @@
 // This intializes part of the boot code
 // to hold our AltState Enums array (1 word)
 // there is also a word for the initialization state
+// (0xFFFFFFFF for initialized)
 //---------------------------
 //===Register Map===
 // t0 : init_acs
@@ -14,13 +15,14 @@ initAltState: {
   check_init:
   la    t0, init_acs
   lw    t1, 0x0000(t0)
-  addiu at, at, 0xFFFF
+  addiu at, r0, 0xFFFF
   beq   at, t1, exit
   nop
   //if(!initialized){
   initialize:
   sw    at, 0x0000(t0)    //store 0xFFFFFFFF to show we've initialized the array
-  sw    r0, 0x0004(t0)    //zero out old data
+  sw    r0, 0x0004(t0)    //zero out old data, so we can store our alt-char-states
+  // }
   exit:
   jr    ra
   nop

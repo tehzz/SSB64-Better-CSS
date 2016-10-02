@@ -1,4 +1,5 @@
 //bass-n64
+// ADDED TO DMA'D CODE
 //---------------------------
 // This simples to jumps to another routine that
 // has can hanlde illegal (>0xB) character values before

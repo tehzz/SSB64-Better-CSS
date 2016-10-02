@@ -20,7 +20,7 @@ scope hook_b_button_deselect {
     evaluate overBy(origin() - 0x136294)
     print "Routine needs to end at 0x1315F4, \nbut instead ended at 0x"
     printHex(origin()); print "\nOver-sized by {overBy} bytes\n"
-    error "Replacement fn.css.updatePlayerPanelPallet is too large!\n"
+    error "B-Button Deselect Hook is too large!\n"
   } else {
     // nop the rest of the original routine
     while (origin() <= 0x136294) {

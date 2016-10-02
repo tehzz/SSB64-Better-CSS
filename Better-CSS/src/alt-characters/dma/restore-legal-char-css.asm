@@ -1,5 +1,31 @@
 //bass-n64
 
+//---Begin Hook----------------------------------
+//---------------------------
+// This simples to jumps to another routine that
+// has can hanlde illegal (>0xB) character values before
+// the game crashes with them
+//---------------------------
+// Original Code
+// At 8013ACC4
+// sw   r0, 0x001C(v0)
+// sw   r0, 0x0020(v0)
+//-----------------
+// Replace the first sw with a j
+
+pushvar pc
+origin 0x138F44
+base 0x8013ACC4
+scope restore_char_CSS: {
+  jump:
+  j   restore_legal_char_CSS
+}
+
+pullvar pc
+//---End Hook------------------------------------
+
+
+
 // Jump only code (not a true routine)
 // Turn an illegal, crashing character back into a legal one
 // while also preserving the alt-char-state of the illegal character
@@ -46,7 +72,7 @@ scope restore_legal_char_CSS: {
   sb    t0, 0x0023(v1)      // store changed character index
 
   return:
-  j     CSS.hooks.restore_char_CSS + 8
+  j     restore_char_CSS + 8
   sw    r0, 0x001C(v0)      // original line of code
 
   mm_restore:

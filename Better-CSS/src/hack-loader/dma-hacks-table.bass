@@ -1,5 +1,5 @@
 // CSS Data: 0x0
-dw CSS.DMA.ROM, CSS.DMA.RAM, CSS.DMA.SIZE
+dw DMA.CSS.ROM, DMA.CSS.RAM, DMA.CSS.SIZE
 align(4)
 
 // Verbose Print info [-d v on cli]
