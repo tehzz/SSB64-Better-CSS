@@ -1,0 +1,52 @@
+//bass-n6
+//---Character Logo Arrays and Data--------------
+
+//---Character Logo Offset within File-0035--
+//---Note: Master Hand and all Polgyon offsets are just
+//     the pokeball. Update once we get the smash logo working
+align(4)
+scope char_logo_offsets: {
+dw  0x00000990, 0x000021D0, 0x00001348    //Mario, Fox, DK
+dw  0x00001860, 0x00000990, 0x00002520    //Samus, Luigi, Link
+dw  0x00002F10, 0x00003828, 0x00003E68    //Yoshi, Falcon, Kirby
+dw  0x00004710, 0x00004710, 0x00005A00    //Pika, Jiggs, Ness
+dw  0x00004710, 0x00000990, 0x00004710    //Master Hand, Metal Mario, P. Mario
+dw  0x00004710, 0x00004710, 0x00004710    //P. Fox, P. DK, P. Samus
+dw  0x00004710, 0x00004710, 0x00004710    //P.Luigi, P.Link, P.Yoshi
+dw  0x00004710, 0x00004710, 0x00004710    //P.Falcon, P.Kirby, P.Pika
+dw  0x00004710, 0x00004710, 0x00001348    //P.Jiggs, P.Ness, Giant DK
+constant length(0x1B)
+constant size(0x6C)
+}
+
+//--Charater Logo "Color" Offset in 0035.bin------
+// I don't really know what this array does, but
+// if I skip it, the color of the logo is solid black, not gray
+align(4)
+scope char_logo_color_offsets: {
+dw  0x00000000, 0x00001940, 0x00000B00, 0x00001470    //Mario, Fox, DK, Samus
+dw  0x00000000, 0x000022B0, 0x00002690, 0x00002FF0    //Luigi, Link, Yoshi, Falcon
+dw  0x00003900, 0x00003F40, 0x00003F40, 0x00004840    //Kirby, Pika, Jiggs, Ness
+dw  0x00003F40, 0x00000000, 0x00003F40, 0x00003F40    //Hand, Metal, P.Mario, P.Fox
+dw  0x00003F40, 0x00003F40, 0x00003F40, 0x00003F40    //P.Dk, P.Samus, P.Luigi, P.Link
+dw  0x00003F40, 0x00003F40, 0x00003F40, 0x00003F40    //P.Yoshi, P.Falcon, P.Kirby, P.Pika
+dw  0x00003F40, 0x00003F40, 0x00000B00                //P.Jiggz, P.Ness, Giant DK
+constant length(0x1B)
+constant size(0x6C)
+}
+
+//--Charater Logo "Zoom" Offset in 0035.bin------
+// I don't really know what this array does, but
+// if I skip it, the logo doesn't zoom out to shrink.
+// It just stays the same, large size
+scope char_logo_zoom_offsets: {
+dw  0x00000A14, 0x00002254, 0x000013CC, 0x000018E4    //Mario, Fox, DK, Samus
+dw  0x00000A14, 0x000025A4, 0x00002F94, 0x000038AC    //Luigi, Link, Yoshi, Falcon
+dw  0x00003EEC, 0x00004794, 0x00004794, 0x00005A84    //Kirby, Pika, Jiggs, Ness
+dw  0x00004794, 0x00000A14, 0x00004794, 0x00004794    //Hand, Metal, P.Mario, P.Fox
+dw  0x00004794, 0x00004794, 0x00004794, 0x00004794    //P.Dk, P.Samus, P.Luigi, P.Link
+dw  0x00004794, 0x00004794, 0x00004794, 0x00004794    //P.Yoshi, P.Falcon, P.Kirby, P.Pika
+dw  0x00004794, 0x00004794, 0x000013CC                //P.Jiggz, P.Ness, Giant DK
+constant length(0x1B)
+constant size(0x6C)
+}

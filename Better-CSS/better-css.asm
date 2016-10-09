@@ -48,7 +48,7 @@ scope DMA {
   // set initial ROM base
   origin 0x00F5F500
 
-  //---Code for CSS Only-------
+  //---Code DMA'd into RAM on CSS-------
   scope CSS {
     // set RAM base for DMA'd CSS
     // and save ROM, RAM, and SIZE for DMA Loader
@@ -67,7 +67,7 @@ scope DMA {
     align(4)
     //---End Code to Be DMA'd
 
-    // update our SIZE variable
+    // update SIZE variable
     variable SIZE(origin()-ROM)
     // --- Print out info on DMA stuff
     // Verbose Print info [-d v on cli]
@@ -76,8 +76,43 @@ scope DMA {
       printDMAInfo(ROM, RAM, SIZE)
     }
   }
+
+  //---Code DMA'd into RAM on Results Screen-------
   scope Results {
-    // for the results screen DMA'd code
+    // set base for DMA routine for Results Screen
+    // and save ROM, RAM, and SIZE for DMA Loader
+    base 0x8038F000   // <-- modify DMA loader to steal from heap
+
+    constant ROM(origin())
+    constant RAM(pc())
+    variable SIZE(0)
+
+    //--Code to be DMA'd-----
+    include "src/results/results-more-chars.asm"
+    align(4)
+
+    //--End DMA'd Code-------
+
+    // update SIZE variable
+    variable SIZE(origin()-ROM)
+
+    // Warn if size approaches 0x80392A00
+    // Error if size exceeds
+    if pc() >= 0x80392A00 {
+      print "Current PC: 0x"; printHex(pc()); print "\n"
+      print "Max PC: 0x80392A00\n"
+      error "Size of Results DMA above limit!! Stopping assembly\n"
+    } else if pc() >= 0x80392000 {
+      warning "Size of Results DMA approaching limit!!\n"
+      print "Current PC: 0x"; printHex(pc()); print "\n"
+      print "Max PC: 0x80392A00\n"
+    }
+
+    // Verbose Print info [-d v on cli]
+    if {defined v} {
+      print "Reults Screen DMA Parameters:\n"
+      printDMAInfo(ROM, RAM, SIZE)
+    }
   }
 }
 
@@ -118,6 +153,7 @@ scope loader {
   include "src/hack-loader/dma-loader.asm"
   scope hooks {
     include "src/hack-loader/css-hook.asm"
+    include "src/hack-loader/results-hook.asm"
   }
 }
 

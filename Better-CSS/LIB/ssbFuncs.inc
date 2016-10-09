@@ -34,5 +34,15 @@ origin 0x275C0
 base 0x800269C0
 playFGM:
 
+//void loadCharacterModel
+//-------------------------------
+// a0: character index to load
+//-------------------------------
+// This loads assort files for the character in a0
+// into RAM 
+origin 0x5306C
+base 0x800D786C
+loadCharacterModel:
+
 //--------------------------------------
 print "Univseral SSB Routines included!\n\n"
