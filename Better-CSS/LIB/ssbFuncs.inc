@@ -34,12 +34,22 @@ origin 0x275C0
 base 0x800269C0
 playFGM:
 
+//void playBGM
+//-------------------------------
+// a0: sound distortin effect?
+// a1: background music index
+//-------------------------------
+// Play the indexed sound
+// origin 0x??
+base 0x80020AB4
+playBGM:
+
 //void loadCharacterModel
 //-------------------------------
 // a0: character index to load
 //-------------------------------
 // This loads assort files for the character in a0
-// into RAM 
+// into RAM
 origin 0x5306C
 base 0x800D786C
 loadCharacterModel:

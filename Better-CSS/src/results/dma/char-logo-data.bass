@@ -6,15 +6,13 @@
 //     the pokeball. Update once we get the smash logo working
 align(4)
 scope char_logo_offsets: {
-dw  0x00000990, 0x000021D0, 0x00001348    //Mario, Fox, DK
-dw  0x00001860, 0x00000990, 0x00002520    //Samus, Luigi, Link
-dw  0x00002F10, 0x00003828, 0x00003E68    //Yoshi, Falcon, Kirby
-dw  0x00004710, 0x00004710, 0x00005A00    //Pika, Jiggs, Ness
-dw  0x00004710, 0x00000990, 0x00004710    //Master Hand, Metal Mario, P. Mario
-dw  0x00004710, 0x00004710, 0x00004710    //P. Fox, P. DK, P. Samus
-dw  0x00004710, 0x00004710, 0x00004710    //P.Luigi, P.Link, P.Yoshi
-dw  0x00004710, 0x00004710, 0x00004710    //P.Falcon, P.Kirby, P.Pika
-dw  0x00004710, 0x00004710, 0x00001348    //P.Jiggs, P.Ness, Giant DK
+dw  0x00000990, 0x000021D0, 0x00001348, 0x00001860    //Mario, Fox, DK, Samus
+dw  0x00000990, 0x00002520, 0x00002F10, 0x00003828    //Luigi, Link, Yoshi, Falcon
+dw  0x00003E68, 0x00004710, 0x00004710, 0x00005A00    //Kirby, Pika, Jiggs, Ness
+dw  0x00004710, 0x00000990, 0x00004710, 0x00004710    //Hand, Metal, P.Mario, P.Fox
+dw  0x00004710, 0x00004710, 0x00004710, 0x00004710    //P.Dk, P.Samus, P.Luigi, P.Link
+dw  0x00004710, 0x00004710, 0x00004710, 0x00004710    //P.Yoshi, P.Falcon, P.Kirby, P.Pika
+dw  0x00004710, 0x00004710, 0x00001348                //P.Jiggz, P.Ness, Giant DK
 constant length(0x1B)
 constant size(0x6C)
 }
@@ -22,6 +20,7 @@ constant size(0x6C)
 //--Charater Logo "Color" Offset in 0035.bin------
 // I don't really know what this array does, but
 // if I skip it, the color of the logo is solid black, not gray
+// might have more use in team mode...?
 align(4)
 scope char_logo_color_offsets: {
 dw  0x00000000, 0x00001940, 0x00000B00, 0x00001470    //Mario, Fox, DK, Samus
