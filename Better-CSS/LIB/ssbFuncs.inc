@@ -36,11 +36,11 @@ playFGM:
 
 //void playBGM
 //-------------------------------
-// a0: sound distortin effect?
+// a0: sound distortion effect?
 // a1: background music index
 //-------------------------------
 // Play the indexed sound
-// origin 0x??
+origin 0x216B4
 base 0x80020AB4
 playBGM:
 

@@ -4,19 +4,23 @@
 //---.data------------------------
 scope data {
 include "dma/char-logo-data.bass"
+include "dma/char-bgm.bass"
 }
 //---end .data--------------------
 
 //---.text------------------------
 scope text {
+  align(4)
 // Load only the <=4 characters used in a battle
 include "dma/load-chars.asm"
 // Have variable sized array for winning character logo
 include "dma/more-char-logos.asm"
-
 // victory theme
+include "dma/victory-theme.asm"
 
 // winning character FGM
+
+// character model zoom
 
 // winning character string
 
