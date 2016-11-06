@@ -5,6 +5,7 @@
 scope data {
 include "dma/char-logo-data.bass"
 include "dma/char-bgm.bass"
+include "dma/char-fgm.bass"
 }
 //---end .data--------------------
 
@@ -17,8 +18,8 @@ include "dma/load-chars.asm"
 include "dma/more-char-logos.asm"
 // victory theme
 include "dma/victory-theme.asm"
-
 // winning character FGM
+include "dma/announce-winner.asm"
 
 // character model zoom
 

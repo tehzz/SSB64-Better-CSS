@@ -1,0 +1,19 @@
+//bass-n64
+//---Character Name FGM--------------------------
+// For the announcer to say the winning character's name
+
+align(4)
+
+scope char_fgm: {
+  dh  0x01F3, 0x01E6, 0x01E3, 0x0201    //Mario, Fox, DK, Samus
+  dh  0x01F2, 0x01F1, 0x0217, 0x01E5    //Luigi, Link, Yoshi, Falcon
+  dh  0x01F0, 0x01FB, 0x01FC, 0x01F5    //Kirby, Pika, Jiggs, Ness
+  dh  0x01ED, 0x01CE, 0x01E2, 0x01E2
+  dh  0x01E2, 0x01E2, 0x01E2, 0x01E2
+  dh  0x01E2, 0x01E2, 0x01E2, 0x01E2
+  dh  0x01E2, 0x01E2, 0x01E9
+
+  constant length(0x1B)
+  constant size(0x36)
+  constant default(0x0274)  //mild clapping
+}

@@ -23,7 +23,7 @@ origin 0x1578CC
 base 0x8013872C
 
 scope victoryThemes {
-  // load check range...?
+  // make sure that the character is in the array
   range_check:
             ori   t0, r0, data.char_bgm.length
             sltu  at, v0, t0
