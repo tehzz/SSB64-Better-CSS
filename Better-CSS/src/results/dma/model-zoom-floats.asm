@@ -30,6 +30,7 @@ pullvar pc
 //      &char_zoom (base)
 // t1 : char-index << 2
 // a2 : character index
+// v0 : &char_zoom[char] || &char_zoom.default
 
 scope pointToFloat: {
             ori   t0, r0, data.char_zoom.length
