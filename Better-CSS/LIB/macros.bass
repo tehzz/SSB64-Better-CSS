@@ -5,6 +5,17 @@ macro align(size) {
   }
 }
 
+//Write a null-terminated string
+macro asciiz(define str) {
+  db {str}, 0x00
+}
+// Write and fill a null-terminated string [bit]
+macro asciizAlign(string, length) {
+  variable start(pc())
+  db {string}, 0x00
+  fill {length} - (pc() - start)
+}
+
 // Prints a hex number to stdout
 macro printHex(variable value) {
   if value > 15 {
