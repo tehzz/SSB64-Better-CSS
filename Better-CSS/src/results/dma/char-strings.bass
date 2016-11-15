@@ -92,7 +92,7 @@ scope str: {
     }
     { //0x01 - Fox
       dw      Fox
-      float32  70.0
+      float32  60.0
       float32   1.0
       float32 160.0
       db      textPallet.red
@@ -101,9 +101,9 @@ scope str: {
     }
     { //0x02 - DK
       dw      DK
-      float32  60.0
+      float32  70.0
       float32   1.0
-      float32 160.0
+      float32 150.0
       db      textPallet.red
       db      addText.enum.null
       dh      0x0000
@@ -218,7 +218,7 @@ scope str: {
     }
     { //0x0F - Polygon Fox
       dw      Fox
-      float32  70.0
+      float32  60.0
       float32   1.0
       float32 160.0
       db      textPallet.purple
@@ -227,9 +227,9 @@ scope str: {
     }
     { //0x10 - Polygon DK
       dw      DK
-      float32  60.0
+      float32  70.0
       float32   1.0
-      float32 160.0
+      float32 150.0
       db      textPallet.purple
       db      addText.enum.polygon
       dh      0x0000
