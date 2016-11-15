@@ -7,12 +7,13 @@ include "dma/char-logo-data.bass"
 include "dma/char-bgm.bass"
 include "dma/char-fgm.bass"
 include "dma/char-zoom.bass"
+include "dma/char-strings.bass"
 }
 //---end .data--------------------
 
 //---.text------------------------
+align(4)
 scope text {
-  align(4)
 // Load only the <=4 characters used in a battle
 include "dma/load-chars.asm"
 // Have variable sized array for winning character logo
@@ -23,10 +24,12 @@ include "dma/victory-theme.asm"
 include "dma/announce-winner.asm"
 // expand zoom factor array for all characters
 include "dma/model-zoom-floats.asm"
-
 // winning character string
+include "dma/write-winner-str.asm"
 
 // victory and chapping animation
+
+// player (p1, cp, etc) arrow positions?
 }
 //---end .text--------------------
 

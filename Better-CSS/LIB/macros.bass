@@ -60,3 +60,37 @@ macro nonLeafStackSize(variable words) {
     global evaluate StackSize({StackSize} + 4)
   }
 }
+
+// Quick loading macros. These can split a 32bit address into
+// two instructions (lui/lw) instead of three (lui/or/lw)
+// Also, they can add a register with an offset to an
+// immediate base address in 3 instructions, not 4.
+macro lwAddr(variable dest, variable addr, variable offsetReg ) {
+  variable upperAddr( (addr >> 16) & 0xFFFF )
+  variable lowerAddr( addr & 0xFFFF )
+
+  if lowerAddr & 0x8000 {
+    upperAddr = upperAddr + 1
+  }
+
+    lui   dest, upperAddr
+  if offsetReg {
+    addu  dest, dest, offsetReg
+  }
+    lw    dest, lowerAddr(dest)
+}
+
+macro lbuAddr(variable dest, variable addr, variable offsetReg ) {
+  variable upperAddr( (addr >> 16) & 0xFFFF )
+  variable lowerAddr( addr & 0xFFFF )
+
+  if lowerAddr & 0x8000 {
+    upperAddr = upperAddr + 1
+  }
+
+    lui   dest, upperAddr
+  if offsetReg {
+    addu   dest, dest, offsetReg
+  }
+    lbu   dest, lowerAddr(dest)
+}

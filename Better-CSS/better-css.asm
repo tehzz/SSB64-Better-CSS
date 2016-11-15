@@ -23,6 +23,9 @@ scope fn {
   scope css {
     include "LIB/cssFuncs.inc"
   }
+  scope results {
+    include "LIB/resultsFuncs.inc"
+  }
 }
 
 // insert SSB U big-endian rom
