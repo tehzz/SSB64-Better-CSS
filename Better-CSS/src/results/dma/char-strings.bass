@@ -41,8 +41,8 @@ scope str: {
     constant green(0x2)
     constant lightBlue(0x3)
     constant monochrome(0x4)
-    constant purple(0x5)    // originally dark red
-    constant darkBlue(0x6)
+    constant purple(0x5)    // originally dark blue
+    constant darkRed(0x6)
     constant darkGreen(0x7)
   }
 //---Additional lines of text--------------------
