@@ -41,9 +41,11 @@ scope str: {
     constant green(0x2)
     constant lightBlue(0x3)
     constant monochrome(0x4)
-    constant purple(0x5)    // originally dark blue
-    constant darkRed(0x6)
-    constant darkGreen(0x7)
+    // additional colors added by routine
+    constant purple(0x5)
+    addColors: {
+      dw  0x8B008BFF
+    }
   }
 //---Additional lines of text--------------------
   scope addText {

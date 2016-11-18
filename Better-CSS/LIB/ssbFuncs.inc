@@ -45,14 +45,23 @@ base 0x80020AB4
 playBGM:
 
 //void loadCharacterModel
-//-------------------------------
+//--------------------------------
 // a0: character index to load
-//-------------------------------
+//--------------------------------
 // This loads assort files for the character in a0
 // into RAM
 origin 0x5306C
 base 0x800D786C
 loadCharacterModel:
+
+// u32 get Random Int
+//--------------------------------
+// a0 : u32 N
+//--------------------------------
+// Returns a random integer between 0 and N-1
+origin 0x19594
+base 0x80018994
+getRandomInt:
 
 //--------------------------------------
 print "Univseral SSB Routines included!\n\n"
