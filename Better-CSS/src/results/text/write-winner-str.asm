@@ -27,7 +27,7 @@ scope hook_winStr {
             addiu sp, sp, {StackSize}
             nop
   // Zero out rest of the original function
-  while pc() <= 8013447C {
+  while pc() <= 0x8013447C {
     nop
   }
 }
