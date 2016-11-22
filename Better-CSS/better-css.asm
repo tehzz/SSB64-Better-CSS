@@ -140,7 +140,7 @@ scope Replacement_Routines {
     }
 
     // on results screen, replace an illegal character value with a legal one
-    include "src/alt-characters/reps/replace_result-screen-char-change.asm"
+    // include "src/alt-characters/reps/replace_result-screen-char-change.asm"
   }
 }
 

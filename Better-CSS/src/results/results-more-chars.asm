@@ -1,5 +1,10 @@
 //bass-n64
 // This file should be included in the DMA section of our hack
+// loader.
+// This expands the results screen to work with all characters
+
+//grab current origin for DMA size calcs
+evaluate assembledSize(origin())
 
 //---.data------------------------
 scope data {
@@ -8,6 +13,7 @@ include "data/char-bgm.bass"
 include "data/char-fgm.bass"
 include "data/char-zoom.bass"
 include "data/char-strings.bass"
+include "data/animations.bass"
 }
 //---end .data--------------------
 
@@ -26,14 +32,17 @@ include "text/announce-winner.asm"
 include "text/model-zoom-floats.asm"
 // winning character string
 include "text/write-winner-str.asm"
-
 // victory and chapping animation
+include "text/model-animation.asm"
 
 // player (p1, cp, etc) arrow positions?
 }
 //---end .text--------------------
 
 // Verbose Print info [-d v on cli]
+evaluate assembledSize(origin() - {assembledSize})
 if {defined v} {
-  print "Included results-more-chars.asm!\n\n"
+  print "\nIncluded results-more-chars.asm!\n"
+  print "Compiled Size: 0x"; printHex({assembledSize})
+  print " bytes\n\n"
 }
