@@ -36,6 +36,9 @@ include "text/write-winner-str.asm"
 include "text/model-animation.asm"
 
 // player (p1, cp, etc) arrow positions?
+
+// draw the generic stock icon for polygons to prevent console crash
+include "text/generic-stock-icon.asm"
 }
 //---end .text--------------------
 

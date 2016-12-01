@@ -25,5 +25,15 @@ origin 0x153504
 base 0x80134364
 getWinningCharacter:
 
+//= u8 getCharacterFromPlayer ============
+//-------------------------------------
+// a0 : u8 player index
+//-------------------------------------
+// v0 : u8 character index
+//-------------------------------------
+origin 0x1522E8
+base 0x80133148
+getCharacterFromPlayer:
+
 //--------------------------------------
 print "Results Screen Routines included!\n\n"
