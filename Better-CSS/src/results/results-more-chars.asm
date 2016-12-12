@@ -14,6 +14,7 @@ include "data/char-fgm.bass"
 include "data/char-zoom.bass"
 include "data/char-strings.bass"
 include "data/animations.bass"
+include "data/indicator-y-offsets.bass"
 }
 //---end .data--------------------
 
@@ -26,7 +27,7 @@ include "text/load-chars.asm"
 include "text/more-char-logos.asm"
 // expand victory theme array for all characters
 include "text/victory-theme.asm"
-// expand victory theme array for all characters
+// annoucen character name for all characters
 include "text/announce-winner.asm"
 // expand zoom factor array for all characters
 include "text/model-zoom-floats.asm"
@@ -34,9 +35,8 @@ include "text/model-zoom-floats.asm"
 include "text/write-winner-str.asm"
 // victory and chapping animation
 include "text/model-animation.asm"
-
-// player (p1, cp, etc) arrow positions?
-
+// Fix player (p1, cp, etc) indicator arrow positions
+include "text/indicator-offsets.asm"
 // draw the generic stock icon for polygons to prevent console crash
 include "text/generic-stock-icon.asm"
 }
