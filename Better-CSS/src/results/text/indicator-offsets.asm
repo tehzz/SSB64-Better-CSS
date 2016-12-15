@@ -60,7 +60,7 @@ calcIndYOffset: {
             addu  t1, t1, t0
             lb    t1, 0x0000(t1)
   // get floats into COP1
-            lwc1  f6, 0x0004(v1)      //y position base
+            lwc1  f6, 0x0004(v1)      //y position base (from per-player positioning struct)
             mtc1  t1, f4
             cvt.s.w f4, f4            // y pos offset moved and converted
   // calc point to image-footer (game code, mostly)
