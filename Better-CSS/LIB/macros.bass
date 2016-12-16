@@ -49,8 +49,9 @@ macro warnOnAddr(current, addr, location) {
 }
 
 macro nopUntilPC(addr, location) {
-  if pc() >= {addr} {
+  if pc() > {addr} {
     print "nopUntilPC macro error! \n"
+    print "Current PC: 0x"; printHex({addr}); print "\n"
     print "Max PC: 0x"; printHex({addr}); print "\n"
     error "Stopping assembly at {location}!!"
   } else {
