@@ -27,15 +27,37 @@ macro printHex(variable value) {
 
 // Prints DMA info
 macro printDMAInfo(variable ROM, variable RAM, evaluate SIZE) {
-    print "ROM Addr: 0x"
-    printHex(ROM)
-    print "\nRAM Addr: 0x"
-    printHex(RAM)
+    print "ROM Addr: 0x"; printHex(ROM)
+    print "\nRAM Addr: 0x"; printHex(RAM)
     print "\nTotal Size: {SIZE} byte"
     if {SIZE} > 1 {
       print "s"
     }
     print "\n\n"
+}
+
+macro warnOnAddr(current, addr, location) {
+  if {current} >= {addr} {
+    print "Current: 0x"; printHex({current}); print "\n"
+    print "Max: 0x"; printHex({addr}); print "\n"
+    error "Size of {location} is above limit! Stopping assembly!!"
+  } else if {current} >= ({addr} - 0x100) {
+    print "Current: 0x"; printHex({current}); print "\n"
+    print "Max: 0x"; printHex({addr}); print "\n"
+    warning "Size of {location} is approaching its limit!\n\n"
+  }
+}
+
+macro nopUntilPC(addr, location) {
+  if pc() >= {addr} {
+    print "nopUntilPC macro error! \n"
+    print "Max PC: 0x"; printHex({addr}); print "\n"
+    error "Stopping assembly at {location}!!"
+  } else {
+    while pc() < {addr} {
+      nop
+    }
+  }
 }
 
 // Calculate stack size in bytes for a leaf routine
