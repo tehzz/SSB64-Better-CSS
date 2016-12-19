@@ -34,7 +34,7 @@ pullvar pc
 //--End Hook---------------------------
 
 //===calcIndYOffset====================
-//--Important Regsiters/Stack Values--
+//--Important Registers/Stack Values--
 // s0 : model position index
 // s1 : player index
 // s2 : pointer to active image-footer data
