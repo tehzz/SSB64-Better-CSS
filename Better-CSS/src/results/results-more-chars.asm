@@ -39,6 +39,8 @@ include "text/model-animation.asm"
 include "text/indicator-offsets.asm"
 // draw the generic stock icon for polygons to prevent console crash
 include "text/generic-stock-icon.asm"
+// don't save VS Record data for characters > 0xB
+include "text/limit-saved-data.asm"
 }
 //---end .text--------------------
 
