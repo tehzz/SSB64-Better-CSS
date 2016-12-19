@@ -28,7 +28,7 @@ scope hacks_loader: {
   sw    s0, 0x0018(sp)
 
   // convert hack index into array offset
-  // i*3*4
+  // i*4 + i*8
   sll   at, a0, 2           // hack index * 4
   sll   a0, a0, 3           // hack index * 8
   addu  a0, at, a0          // 4i + 8i = 12i
