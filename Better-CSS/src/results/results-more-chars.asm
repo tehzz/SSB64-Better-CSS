@@ -47,7 +47,7 @@ include "text/limit-saved-data.asm"
 // Verbose Print info [-d v on cli]
 evaluate assembledSize(origin() - {assembledSize})
 if {defined v} {
-  print "\nIncluded results-more-chars.asm!\n"
+  print "\nSuccessfully compiled results-more-chars.asm!\n"
   print "Compiled Size: 0x"; printHex({assembledSize})
   print " bytes\n\n"
 }

@@ -1,0 +1,11 @@
+//bass-n64
+//---Max Legal Color Index-----------------------
+// An array u8 of the max legal color index
+// for each of the standard 12 characters.
+// THe array ordered is by character index
+
+color_max_array: {
+  db 0x04, 0x03, 0x04, 0x04
+  db 0x03, 0x03, 0x05, 0x05
+  db 0x04, 0x04, 0x05, 0x03
+}
