@@ -179,5 +179,5 @@ scope cycle_colors: {
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
-  print "Included cycle-colrs.asm\n"
+  print "Included cycle-colors.asm\n"
 }

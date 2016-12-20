@@ -7,6 +7,7 @@
 evaluate assembledSize(origin())
 
 //---.data------------------------
+align(4)
 scope data {
 include "data/char-logo-data.bass"
 include "data/char-bgm.bass"
