@@ -1,0 +1,38 @@
+//bass-n64
+//---DMA Info for Hacks--------------------------
+// This table contains the size, and ROM and RAM location
+// of "hacked" code.
+
+align(4)
+scope hacks {
+  scope struct {
+    // Offsets to fields within hacks struct
+    constant ROMaddr(0x0000)
+    constant RAMaddr(0x0004)
+    constant Size(0x0008)
+    // size of the struct in bytes
+    constant sizeof(12)
+  }
+  scope enum {
+    // Array indices really
+    constant CSS(0x0)
+    constant Results(0x1)
+  }
+
+  scope array: {
+    // Character Select Screen Data: 0x0
+    dw DMA.CSS.ROM, DMA.CSS.RAM, DMA.CSS.SIZE
+    // Results Screen Data: 0x1
+    dw DMA.Results.ROM, DMA.Results.RAM, DMA.Results.SIZE
+  }
+}
+
+
+
+
+
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included dma-hacks-table.bass\n"
+}

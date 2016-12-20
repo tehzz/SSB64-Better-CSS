@@ -154,10 +154,6 @@ scope loader {
   }
 
   include "src/hack-loader/dma-loader.asm"
-  scope hooks {
-    include "src/hack-loader/css-hook.asm"
-    include "src/hack-loader/results-hook.asm"
-  }
 }
 
 // Verbose Print info [-d v on cli]
