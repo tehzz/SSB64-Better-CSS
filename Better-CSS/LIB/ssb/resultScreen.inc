@@ -5,35 +5,35 @@
 // Label Include for useful/known routines on the results screen
 //==============================================================
 
-//= void Write Block Text =============
+//= void writeBlockText =============
+// ROM : 0x15310C
+// RAM : 0x80133F6C
 //-------------------------------------
-// a0 : &str (null-terminated)
+// a0 : *char str (null-terminated)
 // a1 : f32  Starting X Position
 // a2 : f32  Starting Y Position
 // a3 : u8   Pallet Index
 // sp + 0x10 : f32 String X Scale
 //------------------------------------
-origin 0x15310C
-base 0x80133F6C
-writeBlockText:
+constant writeBlockText(0x80133F6C)
 
-//= u8 Get Winning Character =============
+//= u8 getWinningCharacter =============
+// ROM : 0x153504
+// RAM : 0x80134364
 //-------------------------------------
-// v0 : winning character index
+// v0 : u8 winning character index
 //------------------------------------
-origin 0x153504
-base 0x80134364
-getWinningCharacter:
+constant getWinningCharacter(0x80134364)
 
 //= u8 getCharacterFromPlayer ============
+// ROM : 0x1522E8
+// RAM : 0x80133148
 //-------------------------------------
 // a0 : u8 player index
 //-------------------------------------
 // v0 : u8 character index
 //-------------------------------------
-origin 0x1522E8
-base 0x80133148
-getCharacterFromPlayer:
+constant getCharacterFromPlayer(0x80133148)
 
 //--------------------------------------
-print "Results Screen Routines included!\n\n"
+print "Results Screen Routines included!\n"

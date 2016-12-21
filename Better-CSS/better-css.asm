@@ -9,23 +9,8 @@ endian msb
 include "LIB/macros.bass"
 // N64 ASM defines/macros
 include "LIB/N64defs.inc"
-// On ROM SSB64 routines
-scope fn {
-  // libultra routines
-  scope libultra {
-    include "LIB/ssbLibUltra.inc"
-  }
-  // "universal" routines in SSB
-  scope ssb {
-    include "LIB/ssbFuncs.inc"
-  }
-  // routintes on the Character Select Screen
-  scope css {
-    include "LIB/cssFuncs.inc"
-  }
-  scope results {
-    include "LIB/resultsFuncs.inc"
-  }
+// Callable, On-ROM SSB64 routines
+include "LIB/ssb/routines.inc"
 }
 
 // insert SSB U big-endian rom
