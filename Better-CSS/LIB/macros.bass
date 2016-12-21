@@ -36,15 +36,17 @@ macro printDMAInfo(variable ROM, variable RAM, evaluate SIZE) {
     print "\n\n"
 }
 
-macro warnOnAddr(current, addr, location) {
+macro errorOnAddr(current, addr, location, warnSize) {
   if {current} >= {addr} {
     print "Current: 0x"; printHex({current}); print "\n"
     print "Max: 0x"; printHex({addr}); print "\n"
-    error "Size of {location} is above limit! Stopping assembly!!"
-  } else if {current} >= ({addr} - 0x100) {
-    print "Current: 0x"; printHex({current}); print "\n"
-    print "Max: 0x"; printHex({addr}); print "\n"
-    warning "Size of {location} is approaching its limit!\n\n"
+    error "{location} is at or above its limit! Stopping assembly!!"
+  } else if {defined warnSize} {
+    if {current} >= {addr} - {warnSize} {
+      print "Current: 0x"; printHex({current}); print "\n"
+      print "Max: 0x"; printHex({addr}); print "\n"
+      warning "{location} is approaching its limit!\n\n"
+    }
   }
 }
 

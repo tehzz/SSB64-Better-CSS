@@ -7,15 +7,6 @@
 // For descriptions of these routines, look up
 // the n64 devkit man pages
 
-// void osInvalICache()
-// ROM : 0x1344B0
-// RAM : 0x800344B0
-//-------------------------------
-// a0:  u32 RAM vaddr
-// a1:  s32 Size
-//-------------------------------
-constant osInvalICache(0x800344B0)
-
 //--LibUltra C standard functions---------------
 constant memcpy(0x800343e0)
 constant strlen(0x8003440c)
@@ -27,6 +18,15 @@ constant sinf(0x800303f0)
 constant cosf(0x80035cd0)
 
 //--os functions-----------------------
+// void osInvalICache()
+// ROM : 0x1344B0
+// RAM : 0x800344B0
+//-------------------------------
+// a0:  u32 RAM vaddr
+// a1:  s32 Size
+//-------------------------------
+constant osInvalICache(0x800344B0)
+
 constant osSendMesg(0x80030000)
 constant osStopThread(0x80030150)
 constant osRecvMesg(0x80030210)
@@ -45,7 +45,6 @@ constant osContStartQuery(0x80033540)
 constant osContGetQuery(0x800335c4)
 constant osEPiStartDma(0x80034300)
 constant osCreateMesgQueue(0x80034480)
-constant osInvalICache(0x800344b0)
 constant osInvalDCache(0x80034530)
 constant osJamMesg(0x80034640)
 constant osSetThreadPri(0x80034790)

@@ -35,7 +35,7 @@ scope text {
 
 
 // Check Total Size
-warnOnAddr(origin(), 0x4310C, "Hack Loader Size")
+errorOnAddr(origin(), 0x4310C, "Hack Loader Size", 0x10)
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
