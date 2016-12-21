@@ -1,6 +1,5 @@
 //bass-n64
-// This file should be included in the DMA section of our hack
-// loader.
+// This file should be included in the DMA section of the hack loader.
 // This expands the results screen to work with all characters
 
 //grab current origin for DMA size calcs
