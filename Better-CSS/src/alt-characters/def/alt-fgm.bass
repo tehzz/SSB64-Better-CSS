@@ -1,0 +1,14 @@
+//bass-n64
+//---Names for Alternative FGM indices-----------
+// Regular Character name will just use the built-in table
+
+scope FGM {
+  constant MM(0x1CE)
+  constant GDK(0x1E9)
+  constant FPT(0x1E2)
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Defined Alternative FGM enums! \n"
+}

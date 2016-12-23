@@ -50,17 +50,25 @@ macro errorOnAddr(current, addr, location, warnSize) {
   }
 }
 
-macro nopUntilPC(addr, location) {
-  if pc() > {addr} {
-    print "nopUntilPC macro error! \n"
-    print "Current PC: 0x"; printHex({addr}); print "\n"
-    print "Max PC: 0x"; printHex({addr}); print "\n"
+macro nopUntil(current, addr, location) {
+  if {current} > {addr} {
+    print "nopUntil macro error! \n"
+    print "Current: 0x"; printHex({addr}); print "\n"
+    print "Max: 0x"; printHex({addr}); print "\n"
     error "Stopping assembly at {location}!!\n\n"
   } else {
-    while pc() < {addr} {
+    while {current} < {addr} {
       nop
     }
   }
+}
+
+macro nopUntilPC(addr, location) {
+  nopUntil(pc(), {addr}, {location})
+}
+
+macro nopUntilOrigin(addr, location) {
+  nopUntil(origin(), {addr}, {location})
 }
 
 // Calculate stack size in bytes for a leaf routine

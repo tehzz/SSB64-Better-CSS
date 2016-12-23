@@ -34,7 +34,7 @@ scope CSS_load_wrapper: {
             jal   hackLoader
             ori   a0, r0, data.hacks.enum.CSS
   // initialize the altstate array for holding the players' AltState enum
-            jal   DMA.CSS.initAltState
+            jal   DMA.CSS.text.initAltState
             nop
 
   // Pseudo-epilogue

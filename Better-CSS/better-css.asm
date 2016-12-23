@@ -11,14 +11,12 @@ include "LIB/macros.bass"
 include "LIB/N64defs.inc"
 // Callable, On-ROM SSB64 routines
 include "LIB/ssb/routines.inc"
-
+//---------------------------
+//---End Routines, Defines, etc.-------
 
 // insert SSB U big-endian rom
 origin 0x0
 insert "ROM/Super Smash Bros. (U) [!].z64"
-//---------------------------
-//---End Routines, Defines, etc.-------
-
 
 // Unlock Everything  [bit]
 origin 0x042B3B
@@ -33,7 +31,7 @@ dl 0x7F0C90
 //---------------------------
 
 scope DMA {
-  // set initial ROM base for f
+  // set initial ROM base for free space
   origin 0x00F5F500
 
   //---Code DMA'd into RAM on CSS-------
@@ -92,22 +90,6 @@ scope DMA {
       print "Reults Screen DMA Parameters:\n"
       printDMAInfo(ROM, RAM, SIZE)
     }
-  }
-}
-
-scope Replacement_Routines {
-  // These codes are entirely contained within active rouintes. No part of
-  // the routine is DMA'd. Normally, these are in-situ replacements of an
-  // exisiting routine to better support the hack.
-
-  scope CSS {
-    // Verbose Print info [-d v on cli]
-    if {defined v} {
-      print "\nGenerating In-Place Replacement CSS Code: \n\n"
-    }
-
-    // big alteration of a built-in routine that changes the player bg image pallet
-    include "src/alt-characters/reps/replace_cssPalletChange.asm"
   }
 }
 

@@ -1,4 +1,5 @@
 //bass-n64
+//---Alt State Enums-------------------
 
 scope AltState {
   constant NONE(0x0)
@@ -9,5 +10,5 @@ scope AltState {
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
-  print "Included AltState enums! \n"
+  print "Defined AltState enums! \n"
 }

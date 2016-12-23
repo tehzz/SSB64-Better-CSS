@@ -23,5 +23,5 @@ scope text {
 evaluate assembledSize(origin() - {assembledSize})
 if {defined v} {
   print "\nSuccessfully compiled css_color-cycle.asm\n"
-  print "Compiled Size: {assembledSize} bytes\n\n"
+  print "Compiled Size: 0x"; printHex({assembledSize}); print " bytes\n\n"
 }

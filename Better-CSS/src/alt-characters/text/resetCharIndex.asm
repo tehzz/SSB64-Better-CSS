@@ -1,30 +1,37 @@
 //bass-n64
+//=========================================================
+//---resetCharIndex----------------------------
+//
+// Routine looks at the universal player struct to reset
+// an illegal characters to a legal character and the proper
+// alt-char-state
+//=========================================================
 
 //---Begin Hook----------------------------------
 //---------------------------
 // When starting a game/going to the SSS
 // change a player's character based on the alt-char-state
-
 // Original Code:
 // At 0x8013AAB0:
-// jal   0x8013A8B8
-// sw    t7, 0xBDA4(at)
+// 8013AAB0     jal   0x8013A8B8
+// 8013AAB4     sw    t7, 0xBDA4(at)
 //---------------------------
 // Hook that JAL to our replacement routine
 // No inputs into that routine, or into our own
 
 pushvar pc
+
 origin 0x138D30
 base 0x8013AAB0
 scope change_character {
-  jal   changeCharIndex
+            jal   resetCharIndex
 }
 
 pullvar pc
 //---End Hook------------------------------------
 
 
-// void changeCharIndex()
+// void resetCharIndex()
 //-------------------
 // Register Map
 //-------------------
@@ -33,9 +40,9 @@ pullvar pc
 // t2 : is char selected?
 //      then-> alt-char-state
 // t3 : character index
-scope changeCharIndex: {
+scope resetCharIndex: {
   nonLeafStackSize(0)
-  constant originalRoutine(0x8013A8B8)
+  constant replaced_targetRoutine(0x8013A8B8)
   constant Player_BaseAddr(0x8013BA88)
 
   prologue:
@@ -52,7 +59,7 @@ scope changeCharIndex: {
     lw    t3, 0x0048(t1)        // BD; t3 = character index
     if_true: {
       switch_alt_state: {
-        li    t2, alt_char_state
+        la    t2, acs.baseAddr
         addu  t2, t0, t2          //
         lbu   t2, 0x0000(t2)      // switch (alt-char-state){
         case_NONE:
@@ -94,7 +101,7 @@ scope changeCharIndex: {
   addiu t1, t1, 0xBC      // BD; player_struct + 1 player
 
   original_code:
-  jal   originalRoutine   // afaik, this routine has no inputs or outputs`
+  jal   replaced_targetRoutine   // afaik, this routine has no inputs or outputs`
   nop
   epilogue:
   lw    ra, 0x0014(sp)
@@ -104,5 +111,5 @@ scope changeCharIndex: {
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
-  print "Included changeCharIndex.asm\n"
+  print "Included resetCharIndex.asm\n"
 }
