@@ -52,12 +52,24 @@ scope text {
 
 //--Full, Callable Routines-------
 
-  // void initAltState(void)
+  // void initAltState()
   include "text/initAltState.asm"
-
-  // void resetCharIndex(void)
-  //    ^ resets character within CSS player struct
-  include "text/resetCharIndex.asm"
+  // ACSenum getACS( player )
+  include "text/getACS.asm"
+  // u16 getCharFGM( ACSenum, character )
+  include "text/getCharFGM.asm"
+  // ACSenum getNoneACS()
+  include "text/getNoneACS.asm"
+  // ACSenum getPolygonACS( character )
+  include "text/getPolygonACS.asm"
+  // ACSenum getSpecialACS( character )
+  include "text/getSpecialACS.asm"
+  // void setACS( player, ACSenum )
+  include "text/setACS.asm"
+  // bool setACSandAnnounce( player, ACSenum, character )
+  include "text/setACSandAnnounce.asm"
+  // void wrapUpdatePallet( player )
+  include "text/wrapUpdatePallet.asm"
 
   // void resetAltState(u32 player-index)
   // void closePanelResetState(u32 player-index)
@@ -66,6 +78,8 @@ scope text {
 
 //--Incomplete ASM (Side Effects)------
 
+  // Update character value(s) within CSS_playerData to match ACS
+  include "text/resetCharIndex.asm"
   // D-PAD to change alt character state
   include "text/dpad-handler.asm"
   // Going to CSS from SSS, restore legal, non-crashing character

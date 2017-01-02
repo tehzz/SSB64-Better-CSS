@@ -43,7 +43,19 @@ constant updateCharacterModel(0x800E9248)
 //      [0: In-Game Human; 1: In-Game CPU; 2: Not In-game]
 //-------------------------------
 // Note: this doesn't actually "close" the panel with 0x2 in a2
+// a1 can also be used as a "Team Index" that reuses 0, 1, and 3
 constant updatePlayerPanelPallet(0x801332AC)
+
+// bool selectCharConditional
+//--------------------------------
+// a0 : u32 pointer from CSS_playerData + 0x0
+// a1 : u32 player index
+// a2 : u32 held token
+// a3 : u32 character color
+//--------------------------------
+// v0 : bool character was selected by routine
+//--------------------------------
+constant selectCharConditional(0x8013718C)
 
 //--------------------------------------
 print "CSS Routines included!\n"
