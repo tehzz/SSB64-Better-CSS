@@ -51,11 +51,32 @@ constant updatePlayerPanelPallet(0x801332AC)
 // a0 : u32 pointer from CSS_playerData + 0x0
 // a1 : u32 player index
 // a2 : u32 held token
-// a3 : u32 character color
+// a3 : u32 C-Button Color index || 0x4 Default
 //--------------------------------
 // v0 : bool character was selected by routine
 //--------------------------------
+// a3 == 0x4 seems to be a "default" that the routine loads
+// the current displayed color, instead of setting a color
 constant selectCharConditional(0x8013718C)
+
+// u32 colorLookUpFFA
+//--------------------------------
+// a0 : u32 character
+// a1 : u32 C-Button Direction (or, "i")
+//--------------------------------
+// v0 : u32 color index
+//--------------------------------
+constant colorLookUpFFA(0x800EC0EC)
+
+// bool colorLookUpFFA
+//--------------------------------
+// a0 : u32 character
+// a1 : u32 player-index
+// a2 : u32 color-index
+//--------------------------------
+// v0 : bool color in use
+//--------------------------------
+constant colorInUse(0x80134674)
 
 //--------------------------------------
 print "CSS Routines included!\n"

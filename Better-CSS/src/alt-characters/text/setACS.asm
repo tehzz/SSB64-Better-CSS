@@ -1,7 +1,6 @@
 //bass-n64
 //===setACS======================================
-// return the FGM index that corresponds to a
-// character's name (if applicable)
+// Set the ACS for player a0 with ACSenum a1
 //--Inputs-----------------------------
 // a0 : u32 player
 // a1 : u8  ACSenum

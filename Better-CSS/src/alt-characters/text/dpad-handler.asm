@@ -73,18 +73,19 @@ scope dpad_alt_char_state: {
             la    s1, CSS_playerData
             mflo  at
             addu  s1, at, s1          // pointer to current player's css data struct
-  // Save held token value, since css.selectCharConditional will change
+  // Save held token value
             lw    s3, 0x0080(s1)
   // Select Characer with DPAD if possible
             lw    a0, 0x0000(s1)      // Needed pointer
+            or    a1, r0, s2          // player index
             or    a2, r0, s3          // player token held by current player
             jal   fn.css.selectCharConditional
-            or    a3, r0, r0          // color index... might need to make a routine to find first free color for character (if applicable)
+            ori   a3, r0, 0x4         // use first available color
 
   // Branch based on return
   // If a character was selected by the routine, it could be for any player
   // If not, the dpad input can only be used for the button-pressing player
-            beqz  v0, char_not_selected
+            beqz  v0, char_cant_select
             nop
   char_selected:
   // generate new CSS_playerData pointer for held token player
@@ -97,7 +98,7 @@ scope dpad_alt_char_state: {
             b     dpad_rl_check
             lw    s3, 0x0048(s1)      // char index for held token's player
 
-  char_not_selected:
+  char_cant_select:
   // ensure that the player pressing the DPad has a selected character
             lw    at, 0x0088(s1)      // bool charSelected (second of its kind in struct..?)
             beqz  at, epilogue        // if (!selected) exit
