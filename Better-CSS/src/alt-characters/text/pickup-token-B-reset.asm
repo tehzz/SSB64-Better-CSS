@@ -43,7 +43,7 @@ scope b_reset_state: {
             mflo  at
             addu  t0, at, t0
   reset_state:
-            jal   resetAltState       // a0 is already player index
+            jal   resetACS            // a0 is already player index
             sw    t0, 0x0018(sp)      // store pointer now; grab in epilogue
 
   epilogue:
@@ -56,5 +56,5 @@ scope b_reset_state: {
 
 // Verbose Print info [-d v on cli]
 if {defined v} {
-  print "Included b-pick-up-handler.asm\n"
+  print "Included pickup-token-B-reset.asm\n"
 }

@@ -78,5 +78,12 @@ constant colorLookUpFFA(0x800EC0EC)
 //--------------------------------
 constant colorInUse(0x80134674)
 
+// void pickupToken
+//--------------------------------
+// a0 : u32 player index of cursor
+// a1 : u32 player index of token (to be picked up)
+//--------------------------------
+constant pickupToken(0x8013760C)
+
 //--------------------------------------
 print "CSS Routines included!\n"

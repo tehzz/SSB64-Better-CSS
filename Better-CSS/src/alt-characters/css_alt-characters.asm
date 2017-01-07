@@ -68,13 +68,10 @@ scope text {
   include "text/setACS.asm"
   // bool setACSandAnnounce( player, ACSenum, character )
   include "text/setACSandAnnounce.asm"
+  // void resetACS( player )
+  include "text/resetACS.asm"
   // void wrapUpdatePallet( player )
   include "text/wrapUpdatePallet.asm"
-
-  // void resetAltState(u32 player-index)
-  // void closePanelResetState(u32 player-index)
-  // void pickUpTokenResetState(u32 player-index, u32 token-player-index)
-  include "text/reset-state-fns.asm"
 
 //--Incomplete ASM (Side Effects)------
 
@@ -84,8 +81,12 @@ scope text {
   include "text/restore-legal-char-css.asm"
   // Update character value(s) within CSS_playerData to match ACS when leaving CSS
   include "text/set-illegal-char-css.asm"
-  // When hitting "B" to pick up a token, reset alt-char-state
-  include "text/b-pick-up-handler.asm"
+  // Reset ACS when picking up a player to token with "A"
+  include "text/pickup-token-A-reset.asm"
+  // When hitting "B" to pick up a token, reset ACS
+  include "text/pickup-token-B-reset.asm"
+  // When closing the character panel, reset ACS
+  include "text/close-panel-reset.asm"
 
 }
 //---end .text-------------------------
