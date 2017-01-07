@@ -1,10 +1,11 @@
 //bass-n64
 //=========================================================
-//---resetCharIndex----------------------------
+//---Set Illegal Character Indices When Leaving CSS--------
 //
-// Routine looks at the universal player struct to reset
-// an illegal characters to a legal character and the proper
-// alt-char-state
+// Routine sets CSS_playerData character index
+// to an illegal (> 0xB) character index if a player's ACS
+// is set when leaving the CSS to go to the SSS / or to start
+// a game if stage selection is turned off.
 //=========================================================
 
 //---Begin Hook----------------------------------
@@ -24,14 +25,14 @@ pushvar pc
 origin 0x138D30
 base 0x8013AAB0
 scope change_character {
-            jal   resetCharIndex
+            jal   setIllegalCharIndex
 }
 
 pullvar pc
 //---End Hook------------------------------------
 
 
-// void resetCharIndex()
+// void setIllegalCharIndex()
 //-------------------
 // Register Map
 //-------------------
@@ -40,7 +41,7 @@ pullvar pc
 // t2 : is char selected?
 //      then-> alt-char-state
 // t3 : character index
-scope resetCharIndex: {
+scope setIllegalCharIndex: {
   nonLeafStackSize(0)
   constant replaced_targetRoutine(0x8013A8B8)
   constant Player_BaseAddr(0x8013BA88)

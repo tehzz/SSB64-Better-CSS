@@ -78,12 +78,12 @@ scope text {
 
 //--Incomplete ASM (Side Effects)------
 
-  // Update character value(s) within CSS_playerData to match ACS
-  include "text/resetCharIndex.asm"
   // D-PAD to change alt character state
   include "text/dpad-handler.asm"
-  // Going to CSS from SSS, restore legal, non-crashing character
+  // Going from SSS to CSS, restore legal, non-crashing character
   include "text/restore-legal-char-css.asm"
+  // Update character value(s) within CSS_playerData to match ACS when leaving CSS
+  include "text/set-illegal-char-css.asm"
   // When hitting "B" to pick up a token, reset alt-char-state
   include "text/b-pick-up-handler.asm"
 
