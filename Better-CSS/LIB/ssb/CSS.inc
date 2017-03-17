@@ -68,7 +68,7 @@ constant selectCharConditional(0x8013718C)
 //--------------------------------
 constant colorLookUpFFA(0x800EC0EC)
 
-// bool colorLookUpFFA
+// bool colorInUse
 //--------------------------------
 // a0 : u32 character
 // a1 : u32 player-index
