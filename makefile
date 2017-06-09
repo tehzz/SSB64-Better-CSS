@@ -15,12 +15,16 @@ build:
 verbose:
 	$(AS) $(ASFLAGS) $(verbose) -o $(OUTPUT) $(SOURCE)
 
-symbols:
+# Symbol Converter from bass to nemu
+CVRT = sym2nbm
+CVRTFLAGS = $(subst .z64,-sym.txt,$(OUTPUT)) -o $(subst .z64,.nbm,$(OUTPUT))
+sym:
 	$(AS) $(ASFLAGS) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
+	-$(CVRT) $(CVRTFLAGS)
 
 vsym:
 	$(AS) $(ASFLAGS) $(verbose) -sym $(subst .z64,-sym.txt,$(OUTPUT)) -o $(OUTPUT) $(SOURCE)
-	sym2nbm $(subst .z64,-sym.txt,$(OUTPUT)) -o $(subst .z64,.nbm,$(OUTPUT))
+	-$(CVRT) $(CVRTFLAGS)
 
 # Moving built roms to the everdrive
 loadED: build
