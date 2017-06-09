@@ -1,9 +1,21 @@
 //bass-n64
 //---Character Logo Arrays and Data--------------
+scope smashlogo {
+  include "dl/smash_logo29.bass"
+  footer:
+    dw 0x00000000, 0x00000000, 0x435B0006, 0x44214005
+    dw 0x00000000, 0x00000000, 0x00000000, 0x00000000
+    dw 0x3F800000, 0x3F800000, 0x3F800000, 0x00000001
+    dw displaylist, 0x00000000, 0x00000000, 0x00000000
+    dw 0x00000000, 0x00000000, 0x00000000, 0x3F800000
+    dw 0x3F800000, 0x3F800000, 0x00000012, 0x00000000
+    dw 0x00000000, 0x00000000, 0x00000000, 0x00000000
+    dw 0x00000000, 0x00000000, 0x00000000, 0x00000000
+}
 
 //---Character Logo Offset within File-0035--
-//---Note: Master Hand and all Polgyon offsets are just
-//     the pokeball. Update once we get the smash logo working
+//-- values with 0x80000000 not set are offsets in file 35,
+// otherwise it is a raw pointer to a RAM address
 align(4)
 scope char_logo_offsets: {
 dw  0x00000990, 0x000021D0, 0x00001348, 0x00001860    //Mario, Fox, DK, Samus

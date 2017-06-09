@@ -9,6 +9,8 @@ endian msb
 include "LIB/macros.bass"
 // N64 ASM defines/macros
 include "LIB/N64defs.inc"
+// f3dex2 macros
+include "LIB/f3dex2.bass"
 // Callable, On-ROM SSB64 routines
 include "LIB/ssb/routines.inc"
 //---------------------------
