@@ -1,0 +1,53 @@
+struct CharacterInfo {
+  name_info:  Name,           [ + 0x00; 0x20]
+  name_fgm:   u16 fgmIndex,   [ + 0x20]
+  theme_bgm:  u16 bgmIndex,   [ + 0x22]
+  logo:       Logo,           [ + 0x24; 0xC]
+  model_zoom: f32,            [ + 0x30]
+  ani_clap:   u32 animation,  [ + 0x34]
+  ani_wins:   u32 *Victory,   [ + 0x38]
+  indi_off:   [u8, 4],        [ + 0x3C]
+}
+sizeof CharacterInfo = 0x40 bytes
+( index << 7 )
+
+struct Logo {
+  dlPtr:    u32 *displaylist    [+0x00]
+  colorPtr: u32 *struct         [+0x04]
+  zoomPtr:  u32 *struct         [+0x08]
+}
+sizeof Logo = 0xC bytes
+
+struct Name {
+  base_str:   u32 *char         [+0x00]
+  x_pos:      f32               [+0x04]
+  y_pos:      f32               [+0x08]
+  x_scale:    f32               [+0x0C]
+  win_x_pos:  f32               [+0x10]
+  win_y_pos:  f32               [+0x14]
+  add_x_pos:  f32               [+0x18]
+  pallet:     u8 Pallet         [+0x1C]
+  addText:    u8 AdditionalText [+0x1D]
+  pad:        u16 0x0000        [+0x1E]
+}
+sizeof Name = 0x20 bytes
+
+u8 enum Pallet {
+  red         = 0x0,
+  blue        = 0x1,
+  green       = 0x2,
+  lightBlue   = 0x3,
+  monochrome  = 0x4,
+  purple      = 0x5
+}
+
+u8 enum AdditionalText {
+  null    = 0xFF,
+  polygon = 0x00
+}
+
+struct Victory {
+  length: u32
+  array: u32 animation[],
+}
+sizeof victory = variable

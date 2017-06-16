@@ -1,0 +1,32 @@
+//bass-n64
+//--- Additional Text Enum -----------------------------------------------------
+// If the name string has more than one line
+scope AddText {
+  constant null(0xFF)
+  constant polygon(0x00)
+  constant metal(0x01)
+}
+
+//--- Additional Text Strings and Pointer Array --------------------------------
+align(4)
+scope addstrs {
+  Polygon:
+    asciiz("POLYGON")
+
+  Metal:
+    asciiz("METAL")
+}
+
+align(4)
+scope addTextArr: {
+  constant length(2)
+
+  dw  addstrs.Polygon   // 0x00
+  dw  addstrs.Metal     // 0x01
+}
+align(4)
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included AddText-enum.bass\n"
+}

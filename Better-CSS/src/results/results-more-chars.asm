@@ -27,7 +27,7 @@ include "text/load-chars.asm"
 include "text/more-char-logos.asm"
 // expand victory theme array for all characters
 include "text/victory-theme.asm"
-// annoucen character name for all characters
+// announce character name for all characters
 include "text/announce-winner.asm"
 // expand zoom factor array for all characters
 include "text/model-zoom-floats.asm"

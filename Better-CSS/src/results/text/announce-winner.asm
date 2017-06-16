@@ -22,6 +22,10 @@ base 0x80131FC4
 pullvar pc
 //--end hook-----------------
 
+//--- void playWinningFGM(character) -------------------------------------------
+// input
+//  a0 = u32 character_index
+//------------------------------------------------
 // Register Map
 // t0 : char_fgm.length
 //      char_fgm base

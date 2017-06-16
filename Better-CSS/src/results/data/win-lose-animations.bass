@@ -1,0 +1,61 @@
+//bass-n64
+//--- Animation Index Constants / Defs -----------------------------------------
+scope ani: {
+  clapping(0x00010005)
+  stunned(0x000200A4)
+  sleeping(0x000200A5)
+  victory1(0x00010001)
+  victory2(0x00010002)
+  victory3(0x00010003)
+  victory4(0x00010004)
+  taunt(0x000200BD)
+
+  MH_death_sparkling(0x000200F9)
+  MH_ignite(0x000200E1)
+  MH_unk1(0x000200E5)
+  MH_unk2(0x000200EF)
+
+  MM_downB(0x000200E3)
+  MM_downSmash(0x000200E3)
+}
+//--- Victory Structure --------------------------------------------------------
+scope Victory {
+  constant length(0x00)
+  constant array(0x04)
+}
+
+//--- Victory Structures for Characters-----------------------------------------
+scope vics {
+  scope regular: {
+    length:
+      dw  0x4
+    arr:
+      dw  victory1, victory2, victory3, victory4
+  }
+
+  scope polygon: {
+    length:
+      dw  0x1
+    arr:
+      dw  taunt
+  }
+
+  scope master_hand: {
+    length:
+      dw  0x3
+    arr:
+      dw  MH_ignite, MH_unk1, MH_unk2
+  }
+
+  scope metal_mario: {
+    length:
+      dw  0x2
+    arr:
+      dw  MM_downB, MM_downSmash
+  }
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included win-lose-animations.bass\n"
+}
