@@ -4,7 +4,8 @@
 scope AddText {
   constant null(0xFF)
   constant polygon(0x00)
-  constant metal(0x01)
+  constant hand(0x01)
+  constant metal(0x02)
 }
 
 //--- Additional Text Strings and Pointer Array --------------------------------
@@ -15,14 +16,18 @@ scope addstrs {
 
   Metal:
     asciiz("METAL")
+
+  Hand:
+    asciiz("HAND")
 }
 
 align(4)
 scope addTextArr: {
-  constant length(2)
+  constant length(3)
 
   dw  addstrs.Polygon   // 0x00
-  dw  addstrs.Metal     // 0x01
+  dw  addstrs.Hand      // 0x01
+  dw  addstrs.Metal     // 0x02
 }
 align(4)
 

@@ -48,6 +48,26 @@ scope charInfoArray: {
     include "char/mario.bass"
   Fox:        // 0x01
     include "char/fox.bass"
+  DK:         // 0x02
+    include "char/dk.bass"
+  Samus:      // 0x03
+    include "char/samus.bass"
+  Luigi:      // 0x04
+    include "char/luigi.bass"
+  Link:       // 0x05
+    include "char/link.bass"
+  Yoshi:      // 0x06
+    include "char/yoshi.bass"
+  CFalcon:    // 0x07
+    include "char/cfalcon.bass"
+  Kirby:      // 0x08
+    include "char/kirby.bass"
+  Pikachu:    // 0x09
+    include "char/pikachu.bass"
+  Jigglypuff: // 0x0A
+    include "char/jigglypuff.bass"
+  Ness:       // 0x0B
+    include "char/ness.bass"
 }
 
 align(4)

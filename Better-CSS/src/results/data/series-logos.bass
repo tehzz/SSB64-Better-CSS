@@ -47,6 +47,7 @@ scope logoColor {
   constant Kirby(0x3900)
   constant Pokemon(0x3F40)
   constant Earthbound(0x4840)
+  constant SmashBros(Pokemon)
 }
 
 scope logoZoom {
@@ -60,6 +61,7 @@ scope logoZoom {
   constant Kirby(0x3EEC)
   constant Pokemon(0x4794)
   constant Earthbound(0x5A84)
+  constant SmashBros(Pokemon)
 }
 
 // Verbose Print info [-d v on cli]

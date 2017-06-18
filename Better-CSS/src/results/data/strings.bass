@@ -16,8 +16,8 @@ constant Wins(0x801397C8)
 
 //--- Added Name Strings -------------------------------------------------------
 align(4)
-  MasterHand:
-    asciiz("MASTER HAND")
+  Hand:
+    asciiz("HAND")    // MASTER is AddText
   //MetalMario:
   //  asciiz("METAL MARIO")   -> Combination of "MARIO" base + "METAL" addText
   GiantDK:
