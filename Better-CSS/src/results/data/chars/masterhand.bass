@@ -20,7 +20,7 @@ align(4)
   db      0x00                      // pad
 
   { // Logo Struct (inlinded)
-    dw  logoDL.SmashBross
+    dw  logoDL.SmashBros
     dw  logoColor.SmashBros
     dw  logoZoom.SmashBros
   }

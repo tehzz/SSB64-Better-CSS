@@ -68,6 +68,12 @@ scope charInfoArray: {
     include "char/jigglypuff.bass"
   Ness:       // 0x0B
     include "char/ness.bass"
+  MasterHand: // 0x0C
+    include "char/masterhand.bass"
+  MetalMario: // 0x0D
+    include "char/metalmario.bass"
+  P_Mario:    // 0x0E
+    include "char/p-mario.bass"
 }
 
 align(4)
