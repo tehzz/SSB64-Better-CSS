@@ -6,10 +6,10 @@ scope smashlogo {
 
   align(8)
   footer:
-    dw  0x00000000, 0x00000000
-    float32 219, 645,   0
-    float32   0,   0,   0
-    float32   1,   1,   1
+    dw  0x00000000, 0x00000000    // bank?, *DisplayList
+    float32 219, 645,   0         //x, y, z pos
+    float32   0,   0,   0         //x, y, z rotation
+    float32   1,   1,   1         //x, y, z scale
     dw  0x00000001, displaylist
     float32   0,   0,   0
     float32   0,   0,   0

@@ -7,7 +7,8 @@
 //=========================================================
 
 //---Hook--------------------
-// Have 6 instructions starting at 801338EC
+// Have 6 instructions, starting at 801338EC, that generate a pointer to a
+// f32 zoom value in an array indexed by character
 // character is in a2; need point to zoom float in v0
 pushvar pc
 
@@ -33,19 +34,24 @@ pullvar pc
 // v0 : &char_zoom[char] || &char_zoom.default
 
 scope pointToFloat: {
-            ori   t0, r0, data.char_zoom.length
-            sltu  at, a2, t0
-            bnez  at, in_range
-            lui   v0, (data.char_zoom.default >> 16) & 0xFFFF
-            b     return
-            ori   v0, t0, data.char_zoom.default & 0xFFFF
-  in_range:
-            la    t0, data.char_zoom
-            sll   t1, a2, 2
-            addu  v0, t0, t1          // &char_zoom[char]
+  nonLeafStackSize(0)
+  get_CharInfoPtr:
+            sw    a2, 0x0008(sp)
+            sw    a0, 0x0000(sp)
+            subiu sp, sp, {StackSize}
+            sw    ra, 0x0014(sp)
+            jal   getCharInfoPtr
+            or    a0, r0, a2
+  zoomAddr_in_v0:
+            addiu v0, v0, data.CharInfo.model_zoom
   return:
+            lw    ra, 0x0014(sp)
+            addiu sp, sp, {StackSize}
+            lw    a0, 0x0000(sp)
+            lw    a1, 0x0004(sp)
+            lw    a2, 0x0008(sp)
             j     zoom_hook.rejoin
-            nop
+            lw    a3, 0x000C(sp)
 }
 
 // Verbose Print info [-d v on cli]

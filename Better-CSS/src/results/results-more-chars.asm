@@ -8,39 +8,35 @@ evaluate assembledSize(origin())
 //---.data------------------------
 align(4)
 scope data {
-include "data/char-logo-data.bass"
-include "data/char-bgm.bass"
-include "data/char-fgm.bass"
-include "data/char-zoom.bass"
-include "data/char-strings.bass"
-include "data/animations.bass"
-include "data/indicator-y-offsets.bass"
+  include "data/char-info-array.bass"
 }
 //---end .data--------------------
 
 //---.text------------------------
 align(4)
 scope text {
-// Load only the <=4 characters used in a battle
-include "text/load-chars.asm"
-// Have variable sized array for winning character logo
-include "text/more-char-logos.asm"
-// expand victory theme array for all characters
-include "text/victory-theme.asm"
-// announce character name for all characters
-include "text/announce-winner.asm"
-// expand zoom factor array for all characters
-include "text/model-zoom-floats.asm"
-// winning character string
-include "text/write-winner-str.asm"
-// victory and chapping animation
-include "text/model-animation.asm"
-// Fix player (p1, cp, etc) indicator arrow positions
-include "text/indicator-offsets.asm"
-// draw the generic stock icon for polygons to prevent console crash
-include "text/generic-stock-icon.asm"
-// don't save VS Record data for characters > 0xB
-include "text/limit-saved-data.asm"
+  // Load only the <=4 characters used in a battle
+  include "text/load-chars.asm"
+  // Have variable sized array for winning character logo
+  include "text/more-char-logos.asm"
+  // expand victory theme array for all characters
+  include "text/victory-theme.asm"
+  // announce character name for all characters
+  include "text/announce-winner.asm"
+  // expand zoom factor array for all characters
+  include "text/model-zoom-floats.asm"
+  // winning character string
+  include "text/write-winner-str.asm"
+  // victory and chapping animation
+  include "text/model-animation.asm"
+  // Fix player (p1, cp, etc) indicator arrow positions
+  include "text/indicator-offsets.asm"
+  // draw the generic stock icon for polygons to prevent console crash
+  include "text/generic-stock-icon.asm"
+  // don't save VS Record data for characters > 0xB
+  include "text/limit-saved-data.asm"
+  // utility routine to index data from CharInfoArray
+  include "text/getCharInfoPtr.asm"
 }
 //---end .text--------------------
 

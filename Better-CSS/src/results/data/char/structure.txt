@@ -8,8 +8,8 @@ struct CharacterInfo {
   ani_wins:   u32 *Victory,   [ + 0x38]
   indi_off:   [u8, 4],        [ + 0x3C]
 }
-sizeof CharacterInfo = 0x40 bytes
-( index << 7 )
+sizeof CharacterInfo = 0x40 bytes = 64 bytes
+( index << 6 )
 
 struct Logo {
   dlPtr:    u32 *displaylist    [+0x00]

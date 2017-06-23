@@ -1,31 +1,31 @@
 //bass-n64
-//--- 0x04 - Luigi CharInfo Structure ------------------------------------------
+//--- 0x05 - Link CharInfo Structure -------------------------------------------
 align(4)
 {
   { // Name Struct (inlined)
-    dw      str.Luigi     //*char base name string\
-    float32 50.0          // base string x position
+    dw      str.Link      //*char base name string\
+    float32 55.0          // base string x position
     float32 180.0         // base string y position
     float32 1.0           // base string x scaling
-    float32 163.0         // X position of "WINS" string
+    float32 160.0         // X position of "WINS" string
     float32 180.0         // Y position of "WINS" string
     float32 0.0           // X position of additional text string
     db      Pallet.red    // Pallet of base name and additional text strings
-    db      null          // Additional Text enum (points to string)
+    db      AddText.null  // Additional Text enum (points to string)
     dh      0x0000        // pad
   }
 
-  dh      fgm.Luigi           // announce name fgm
-  db      bgm.Mario_victory   // victory jingle
+  dh      fgm.Link            // announce name fgm
+  db      bgm.Zelda_victory   // victory jingle
   db      0x00                // pad
 
   { // Logo Struct (inlinded)
-    dw  logoDL.Mario
-    dw  logoColor.Mario
-    dw  logoZoom.Mario
+    dw  logoDL.Zelda
+    dw  logoColor.Zelda
+    dw  logoZoom.Zelda
   }
 
-  float32 1.21                // character model zoom
+  float32 1.33                // character model zoom
   dw      ani.clapping        // losing animation
   dw      vics.regular        // winning animations
   db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)

@@ -39,8 +39,7 @@ pullvar pc
 //--inputs---------
 // a0 : char index
 //--reg map--------
-// s0 : &animate.victory.char
-//      &struct animate.victory.char[index]
+// s0 : *Victory
 // t0 : victory animation index array length
 // t1 : length - 1
 //--outputs-------
@@ -49,26 +48,29 @@ pullvar pc
 
 scope winningAnimation: {
   nonLeafStackSize(1)
-  //prologue
+  prologue:
             subiu sp, sp, {StackSize}
             sw    ra, 0x0014(sp)
             sw    s0, 0x0018(sp)
-  // grab character's pointer to animation index struct
-            sll   t0, a0, 0x2
-      lwAddr(s0, data.animate.victory.char, t0)
-  // check length, get randomInt if necessary
-            lw    t0, 0x0000(s0)
-            subiu t1, t0, 0x1
-            beqz  t1, return_ani
-            or    v0, r0, t1
-  // get random int to select victory animation
+  get_CharInfo:
+            jal   getCharInfoPtr
+            nop
+  get_Victory_struct:
+            lw    s0, data.CharInfo.ani_wins(v0)
+  get_random_offset:
+  // get random offset if Victory.length > 1
+            lw    t0, data.Victory.length(s0)
+            subi  t1, t0, 0x1         // len = Victory.length - 1
+            beqz  t1, return_animation  // if ( len - 1 < 1) return 0
+            or    v0, r0, r0
+  // else { getRandomInt(len) }
             jal   fn.ssb.getRandomInt
             or    a0, r0, t0
-  return_ani:
-  // retun an animation index
-            sll   t0, v0, 0x2         // v0 is either 0 or randomInt
-            addu  s0, s0, t0
-            lw    v0, 0x0004(s0)
+  return_animation:
+            sll   v0, v0, 0x2
+            addu  v0, s0, v0
+            lw    v0, data.Victory.array(v0)   // Victory.array[ani_index]
+  epilogue:
             lw    ra, 0x0014(sp)
             lw    s0, 0x0018(sp)
             jr    ra
@@ -92,6 +94,7 @@ scope getClappingAnimation: {
   //just jump to where we have more space
             j     expandClap
             sw    a0, 0x0000(sp)    // original instruction, use unknown...
+  return:
             jr    ra
             nop
 }
@@ -101,16 +104,25 @@ pullvar pc
 
 //=====expandClap======================
 //---Inputs------------------
-// a0 : char index
+// a0 : u32 char index
+//---Outputs-----------------
+// v0 : u32 losting animation index
 //---Register Map------------
 
 scope expandClap: {
-  // get value
-            sll   t0, a0, 0x2
-        lwAddr(v0, data.animate.clap, t0)
-  // return:
-            j     getClappingAnimation + 0x8
+  nonLeafStackSize(0)
+  prologue:
+            subiu sp, sp, {StackSize}
+            sw    ra, 0x014(sp)
+  get_CharInfo:
+            jal   getCharInfoPtr
             nop
+  deref_losing_animation:
+            lw    ra, 0x014(sp)
+            lw    v0, data.CharInfo.ani_clap(v0)
+  return:
+            j     getClappingAnimation.return
+            addiu sp, sp, {StackSize}
 }
 
 

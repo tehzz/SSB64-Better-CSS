@@ -27,31 +27,21 @@ pullvar pc
 //  a0 = u32 character_index
 //------------------------------------------------
 // Register Map
-// t0 : char_fgm.length
-//      char_fgm base
-// a0 : winning character
-//      win char FGM
+// t0 : u32 *CharInfo input character
+// a0 : u32 winning character
+//      u16 character name FGM index
 
 scope playWinningFGM: {
   nonLeafStackSize(0)
   prologue:
             subiu sp, sp, {StackSize}
             sw    ra, 0x0014(sp)
-  check_length:
-            ori   t0, r0, data.char_fgm.length
-            sltu  at, a0, t0
-            bnez  at, in_range
+  get_CharInfo:
+            jal   getCharInfoPtr
             nop
-            b     play_name
-            ori   a0, r0, data.char_fgm.default
-  in_range:
-            li    t0, data.char_fgm
-            sll   at, a0, 1           // array is half-words
-            addu  a0, t0, at
-            lhu   a0, 0x0000(a0)      // a0 = char_fgm[char]
   play_name:
             jal   fn.ssb.playFGM
-            nop
+            lhu   a0, data.CharInfo.name_fgm(v0)
   epilogue:
             lw    ra, 0x0014(sp)
             jr    ra
