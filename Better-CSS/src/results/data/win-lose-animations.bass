@@ -12,8 +12,8 @@ scope ani: {
 
   constant MH_death_sparkling(0x000200F9)
   constant MH_ignite(0x000200E1)
-  constant MH_unk1(0x000200E5)
-  constant MH_unk2(0x000200EF)
+  constant MH_finger_walk(0x000200E5)
+  constant MH_drill(0x000200EF)
 
   constant MM_downB(0x000200E3)
   constant MM_downSmash(0x000200E3)
@@ -44,7 +44,7 @@ scope vics {
     length:
       dw  0x3
     arr:
-      dw  ani.MH_ignite, ani.MH_unk1, ani.MH_unk2
+      dw  ani.MH_ignite, ani.MH_finger_walk, ani.MH_drill
   }
 
   scope metal_mario: {
