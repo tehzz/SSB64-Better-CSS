@@ -7,13 +7,13 @@ align(4)
 {
   { // Name Struct (inlined)
     dw      str.Unknown       //*char base name string\
-    float32 27.0              // base string x position
+    float32 25.0              // base string x position
     float32 180.0             // base string y position
     float32 0.75              // base string x scaling
     float32 180.0             // X position of "WINS" string
     float32 180.0             // Y position of "WINS" string
     float32 0.0               // X position of additional text string
-    db      Pallet.lightBlue  // Pallet of base name and additional text strings
+    db      Pallet.green      // Pallet of base name and additional text strings
     db      AddText.null      // Additional Text enum (points to string)
     dh      0x0000            // pad
   }
