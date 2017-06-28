@@ -4,9 +4,9 @@ align(4)
 {
   { // Name Struct (inlined)
     dw      str.Mario     //*char base name string
-    float32 30.0          // base string x position
+    float32 35.0          // base string x position
     float32 187.0         // base string y position
-    float32 0.875         // base string x scaling
+    float32 0.8125        // base string x scaling
     float32 175.0         // X position of "WINS" string
     float32 175.5         // Y position of "WINS" string
     float32 20.0            // X position of additional text string
