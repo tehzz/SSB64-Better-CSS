@@ -116,7 +116,7 @@ scope ffaPrintWinner: {
 
 scope writeAdditionalText: {
   nonLeafStackSize(0)
-  constant lineHeight(0x420C0000) // 35.0f32
+  constant lineHeight(0x42180000) // 38.0f32
 
   prologue:
             subiu sp, sp, {StackSize}
