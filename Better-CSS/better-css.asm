@@ -3,27 +3,19 @@
 arch n64.cpu
 endian msb
 
+//---Rouintes, macros, defines, etc----
+//---------------------------
 // bass macros
 include "LIB/macros.bass"
-
-// N64 ASM helpers
+// N64 ASM defines/macros
 include "LIB/N64defs.inc"
+// f3dex2 macros
+include "LIB/f3dex2.bass"
+// Callable, On-ROM SSB64 routines
+include "LIB/ssb/routines.inc"
+//---------------------------
+//---End Routines, Defines, etc.-------
 
-// built-in routines
-scope fn {
-  // libultra routines
-  scope libultra {
-    include "LIB/ssbLibUltra.inc"
-  }
-  // "universal" routines in SSB
-  scope ssb {
-    include "LIB/ssbFuncs.inc"
-  }
-  // routintes on the Character Select Screen
-  scope css {
-    include "LIB/cssFuncs.inc"
-  }
-}
 // insert SSB U big-endian rom
 origin 0x0
 insert "ROM/Super Smash Bros. (U) [!].z64"
@@ -33,34 +25,38 @@ origin 0x042B3B
 base 0x8000A3DE8
 dl 0x7F0C90
 
-// Hacks "based at" the CSS
-scope CSS {
-  // code that needs to be DMA'd
-  scope DMA {
-    // Set beginning origin and base
-    origin 0x00F5F500
-    base 0x80392A00  
-    // ^ might want to change to 0x80392E00 based on "ssb.malloc" values for CSS
-    // other pc addresses:
-    // 0x8038F000
-    // 0x80392A00
+//---DMA'd Routines------------------------------
+//- These routines need to be moved into
+// active RAM. The files have both the
+// code to be DMA'd and hooks from active
+// routines to that code
+//---------------------------
 
-    // Save begining offset/base for DMA-ing the code once on the css
+scope DMA {
+  // set initial ROM base for free space
+  origin 0x00F5F500
+
+  //---Code DMA'd into RAM on CSS-------
+  scope CSS {
+    // set RAM base for DMA'd CSS
+    // and save ROM, RAM, and SIZE for DMA Loader
+    base 0x80392A00   // <-- change away from frame buffers/steal from heap
+
     constant ROM(origin())
     constant RAM(pc())
-    // size is calculated after all includes
     variable SIZE(0)
 
-    // --- Code to be DMA'd
+    //---Code to be DMA'd:
+    // Note: The ASM files include the DMA'd routine,
+    // and the hook to that routine from the natural code flow
     include "src/color-cycle/css_color-cycle.asm"
     align(4)
     include "src/alt-characters/css_alt-characters.asm"
     align(4)
-    // --- End Code to be DMA'd
+    //---End Code to Be DMA'd
 
-    // get total size of DMA in bytes
+    // update SIZE variable
     variable SIZE(origin()-ROM)
-
     // --- Print out info on DMA stuff
     // Verbose Print info [-d v on cli]
     if {defined v} {
@@ -69,56 +65,45 @@ scope CSS {
     }
   }
 
-  // hooks into our code
-  scope hooks {
+  //---Code DMA'd into RAM on Results Screen-------
+  scope Results {
+    // set base for DMA routine for Results Screen
+    // and save ROM, RAM, and SIZE for DMA Loader
+    base 0x8038F000
+
+    constant ROM(origin())
+    constant RAM(pc())
+    variable SIZE(0)
+
+    //--Code to be DMA'd----------
+    align(4)
+    include "src/results/results-more-chars.asm"
+    //--End DMA'd Code------------
+
+    // update SIZE variable
+    variable SIZE(origin()-ROM)
+
+    // Error if PC reachs 0x80392A00
+    // Warn if PC is within 0x200
+    errorOnAddr(pc(), 0x80392A00, "Results DMA Size", 0x200)
+
     // Verbose Print info [-d v on cli]
     if {defined v} {
-      print "Generating CSS hooks: \n\n"
+      print "Reults Screen DMA Parameters:\n"
+      printDMAInfo(ROM, RAM, SIZE)
     }
-
-    // color cycle hook
-    include "src/color-cycle/cc-hook.asm"
-    // d-pad handler hook (combine to big hooks file once all other hooks are done)
-    include "src/alt-characters/hooks/hook_dpad-handler.asm"
-    // b-button deselect character handler: resets alt-state when deselecting
-    include "src/alt-characters/hooks/hook_b-deselect-handler.asm"
-    // close panel to reset alt-char state hook
-    include "src/alt-characters/hooks/hook_close-panel-reset.asm"
-    // when a player's token is picked up, reset that player's alt-char state
-    include "src/alt-characters/hooks/hook_pick-up-token.asm"
-    // change character index based on alt-state when going to SSS
-    include "src/alt-characters/hooks/hook_update-character.asm"
-    // Going from SSS back to CSS, restore legal character and perserve alt-state
-    include "src/alt-characters/hooks/hook_restore-char-css.asm"
-  }
-
-  //replacements for built-in routines or simple, "built-in" hacks
-  scope replacements {
-    // Verbose Print info [-d v on cli]
-    if {defined v} {
-      print "\nGenerating In-Place Replacement CSS Code: \n\n"
-    }
-
-    // big alteration of a built-in routine
-    include "src/alt-characters/reps/replace_cssPalletChange.asm"
-    // on results screen, replace an illegal character value with a legal one
-    include "src/alt-characters/reps/replace_result-screen-char-change.asm"
   }
 }
 
-// insert the hack file loader
-// this is in constantly loaded memory space
-// -> right now: inserted over old debug strings
 scope loader {
+  // insert the hack file loader in constantly loaded memory space
+  // -> right now: inserted over old debug strings
   // Verbose Print info [-d v on cli]
   if {defined v} {
     print "\nGenerating DMA hack loader code: \n\n"
   }
 
   include "src/hack-loader/dma-loader.asm"
-  scope hooks {
-    include "src/hack-loader/css-hook.asm"
-  }
 }
 
 // Verbose Print info [-d v on cli]

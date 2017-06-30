@@ -1,0 +1,81 @@
+//bass-n64
+//--- Definitions and Data -----------------------------------------------------
+include "bgm-fgm-def.bass"          // sound fx
+include "strings.bass"              // character name strings
+include "Pallet-enum.bass"          // text colors
+include "series-logos.bass"         // series logos displaylists
+include "win-lose-animations.bass"  // winning + losing character animations
+
+//-- Bass constants for struct field offsets -----------------------------------
+include "CharInfo-struct.bass"
+
+//-- CharInfo[] for all 0x1B characters ----------------------------------------
+align(4)
+scope charInfoArray: {
+  constant length(0x1B)
+
+  Mario:      // 0x00
+    include "char/mario.bass"
+  Fox:        // 0x01
+    include "char/fox.bass"
+  DK:         // 0x02
+    include "char/dk.bass"
+  Samus:      // 0x03
+    include "char/samus.bass"
+  Luigi:      // 0x04
+    include "char/luigi.bass"
+  Link:       // 0x05
+    include "char/link.bass"
+  Yoshi:      // 0x06
+    include "char/yoshi.bass"
+  CFalcon:    // 0x07
+    include "char/cfalcon.bass"
+  Kirby:      // 0x08
+    include "char/kirby.bass"
+  Pikachu:    // 0x09
+    include "char/pikachu.bass"
+  Jigglypuff: // 0x0A
+    include "char/jigglypuff.bass"
+  Ness:       // 0x0B
+    include "char/ness.bass"
+  MasterHand: // 0x0C
+    include "char/masterhand.bass"
+  MetalMario: // 0x0D
+    include "char/metalmario.bass"
+  P_Mario:    // 0x0E
+    include "char/p-mario.bass"
+  P_Fox:      // 0x0F
+    include "char/p-fox.bass"
+  P_DK:       // 0x10
+    include "char/p-dk.bass"
+  P_Samus:    // 0x11
+    include "char/p-samus.bass"
+  P_Luigi:    // 0x12
+    include "char/p-luigi.bass"
+  P_Link:     // 0x13
+    include "char/p-link.bass"
+  P_Yoshi:    // 0x14
+    include "char/p-yoshi.bass"
+  P_CFalcon:  // 0x15
+    include "char/p-cfalcon.bass"
+  P_Kibry:    // 0x16
+    include "char/p-kirby.bass"
+  P_Pikachu:  // 0x17
+    include "char/p-pikachu.bass"
+  P_Jigglypuff: // 0x18
+    include "char/p-jigglypuff.bass"
+  P_Ness:     // 0x19
+    include "char/p-ness.bass"
+  Giant_DK:   // 0x1A
+    include "char/giantdk.bass"
+}
+
+align(4)
+charInfoDefault:
+  include "char/default.bass"
+align(4)
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included char-info-array.bass\n"
+}

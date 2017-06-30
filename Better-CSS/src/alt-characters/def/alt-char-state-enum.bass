@@ -1,0 +1,14 @@
+//bass-n64
+//---Alt State Enums-------------------
+
+scope AltState {
+  constant NONE(0x0)
+  constant POLYGON(0x1)
+  constant GDK(0x2)
+  constant MM(0x3)
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Defined AltState enums! \n"
+}

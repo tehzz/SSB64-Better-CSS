@@ -1,0 +1,36 @@
+//bass-n64
+//--- Structure Offset Named Constants -----------------------------------------
+scope CharInfo {
+  constant sizeof(0x40)
+
+  scope name {
+    constant base_str(0x00)       // u32 pointer to asciiz string of character's name
+    constant x_pos(0x04)          // f32 x position of name string
+    constant y_pos(0x08)          // f32 y position of name string
+    constant x_scale(0x0C)        // f32 x scaling of name string
+    constant win_x_pos(0x10)      // f32 x position of "WINS"
+    constant win_y_pos(0x14)      // f32 y position of "WINS"
+    constant add_x_pos(0x18)      // f32 x position of additional text string
+                                  //   (add_y_pos is automatically calculated from y_pos)
+    constant pallet(0x1C)         // u8  text color pallet enum
+    constant addText(0x1D)        // u8  additional text enum
+    // pad 0000 (+0x1E)              u16 size struct to word alignment
+  }
+  constant name_fgm(0x20)         // u16 fgm index of char name
+  constant theme_bgm(0x22)        // u8  bgm index of series winning jingle
+  // pad 00 (+ 0x23)              // u8  pad to align to word boundry
+  scope logo {
+    constant dlPtr(0x24)          // u32 pointer to logo display list footer
+    constant colorPtr(0x28)       // u32 pointer to some struct that colorizes logo
+    constant zoomPtr(0x2C)        // u32 pointer to some struct that zooms logo
+  }
+  constant model_zoom(0x30)       // f32 zoom factor for character model
+  constant ani_clap(0x34)         // u32 animation index of clapping (losing animation)
+  constant ani_wins(0x38)         // u32 *Victory - pointer to winning animation structure
+  constant label_offset(0x3C)     // [u8; 4] array of u8 y offsets for player label indicator box
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included CharInfo-struct.bass\n"
+}

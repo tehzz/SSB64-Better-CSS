@@ -2,6 +2,9 @@
 *.z64
 # Src ROM Folder
 ROM/
+# Symbol Debug Files
+*-sym.txt
+*.nbm
 
 # Windows image file caches
 Thumbs.db

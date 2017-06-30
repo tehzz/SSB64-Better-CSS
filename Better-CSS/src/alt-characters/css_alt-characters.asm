@@ -1,7 +1,7 @@
 //bass-n64
-//========================================
-//-----Hack Info
-//========================================
+//===============================================
+//-----Alternative Characters on CSS
+//===============================================
 //    This allows for players to use the unselectable characters
 // by pressing d-pad buttons after selecting a character
 // (like c-buttons for colors)
@@ -11,79 +11,91 @@
 //
 //    These changes are indicated to the players by changing the background
 // behind the character, and by announce the chnange ("FIGHTING POLYGON TEAM", etc.)
-//    It also includes code to stop the game from crashing
-// on the CSS or the results if using an uselectable character
-//----requires--------
-// "LIB/N64defs.inc", bass macros, ssbFuncs, cssFuncs
-// This the DMA'd stuff for the hack
 
-//--Defs---------------------
-//grab current origin for DMA size calcs
-evaluate assembledSize(origin())
+
+//---Defs------------------------------
 // AltState character ENUMs
 //    Used to repressent the unselectable characters on the CSS
-include "inc/alt-char-state-enum.bass"
-// FGM Values for a0 for ssb.playFGM()
-// Regular Character name will just use the built-in table
-scope FGM {
-  constant MM(0x1CE)
-  constant GDK(0x1E9)
-  constant FPT(0x1E2)
+include "def/alt-char-state-enum.bass"
+// FGM Values for ssb.playFGM()
+include "def/alt-fgm.bass"
+
+scope acs {
+  // initialization state for alt-char
+  // <0xFFFFFFFF = initialized>
+  constant initialized(0x800002A8)
+  // base address for the AltState for each player 0-3 (1 byte per player)
+  constant baseAddr(initialized + 0x4)
+  //constant alt_char_state(init_acs + 0x4)
 }
+//---End Defs---------------------------
 
-//---------------------------
-// .data section
-// ensure word alignment for addressing
+
+// grab origin before adding data for DMA size calcs
+evaluate assembledSize(origin())
+
+//---.data-----------------------------
 align(4)
-// Custom Pallets
-include "dma/custom-pallets.bass"
-align(4)
+scope data {
+  // Custom CI-4 Pallets for Player Panel Image
+  include "data/custom-pallets.bass"
+}
+//---end .data-------------------------
 
-// initialization state for alt_char_state
-constant init_acs(0x800002A8)
-// the AltState for each player 0-3 (1 byte per player)
-constant alt_char_state(init_acs + 0x4)
+//--.text------------------------------
+scope text {
+  align(4)
+//--Replacement on-ROM Routines---
 
-//---------------------------
-// .text assemble sections
-//-----------------
-// Incomplete ASM:
-//    These aren't callable routines
+  // void css.updatePlayerPanelPallet( *struct?, u8 Player, u8 PlayerState )
+  include "text/replace_cssPalletChange.asm"
 
-// Use D-PAD to change alt character state
-// scoped name : "dpad_alt_char_state"
-include "dma/dpad-handler.asm"
+//--Full, Callable Routines-------
 
-// Going to CSS from SSS, restore legal, non-crashing character
-// scoped name : "restore_legal_char_CSS"
-include "dma/restore-legal-char-css.asm"
+  // void initAltState()
+  include "text/initAltState.asm"
+  // ACSenum getACS( player )
+  include "text/getACS.asm"
+  // u16 getCharFGM( ACSenum, character )
+  include "text/getCharFGM.asm"
+  // ACSenum getNoneACS()
+  include "text/getNoneACS.asm"
+  // ACSenum getPolygonACS( character )
+  include "text/getPolygonACS.asm"
+  // ACSenum getSpecialACS( character )
+  include "text/getSpecialACS.asm"
+  // void setACS( player, ACSenum )
+  include "text/setACS.asm"
+  // bool setACSandAnnounce( player, ACSenum, character )
+  include "text/setACSandAnnounce.asm"
+  // void resetACS( player )
+  include "text/resetACS.asm"
+  // void wrapUpdatePallet( player )
+  include "text/wrapUpdatePallet.asm"
 
-// When hitting "B" to pick up a token, reset alt-char-state
-// scoped name : "b_reset_state"
-include "dma/b-pick-up-handler.asm"
+//--Incomplete ASM (Side Effects)------
 
-//-----------------
-// Full Routines ASM:
-//    Callable routines that follow proper MIPS conventions
-//    Probably not very useful to call on their own, though.
+  // D-PAD to change alt character state
+  include "text/dpad-handler.asm"
+  // Going from SSS to CSS, restore legal, non-crashing character
+  include "text/restore-legal-char-css.asm"
+  // Update character value(s) within CSS_playerData to match ACS when leaving CSS
+  include "text/set-illegal-char-css.asm"
+  // Reset ACS when picking up a player to token with "A"
+  include "text/pickup-token-A-reset.asm"
+  // When hitting "B" to pick up a token, reset ACS
+  include "text/pickup-token-B-reset.asm"
+  // When closing the character panel, reset ACS
+  include "text/close-panel-reset.asm"
 
-// void resetAltState(uint player-index)
-// void closePanelResetState(uint player-index)
-// void pickUpTokenResetState(uint player-index, uint token-player-index)
-include "dma/reset-state-fns.asm"
+}
+//---end .text-------------------------
 
-// void changeCharIndex()
-include "dma/changeCharIndex.asm"
-
-// void initAltState()
-include "dma/initAltState.asm"
-
-//----end .text--------------
 // Verbose Print info [-d v on cli]
 // calculate the total size of the assembled routine
 evaluate assembledSize(origin() - {assembledSize})
 
 if {defined v} {
   print "\nIncluded css_alt-chara.asm!\n"
-  print "Compiled Size: {assembledSize} bytes\n\n"
+  print "Compiled Size: 0x"; printHex({assembledSize}); print " bytes\n\n"
 }

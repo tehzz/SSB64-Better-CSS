@@ -1,0 +1,32 @@
+//bass-n64
+//--- 0x03 - Samus CharInfo Structure ------------------------------------------
+align(4)
+{
+  { // Name Struct (inlined)
+    dw      str.Samus     //*char base name string\
+    float32 25.0          // base string x position
+    float32 180.0         // base string y position
+    float32 1.0           // base string x scaling
+    float32 176.0         // X position of "WINS" string
+    float32 180.0         // Y position of "WINS" string
+    float32 0.0           // X position of additional text string
+    db      Pallet.red    // Pallet of base name and additional text strings
+    db      AddText.null  // Additional Text enum (points to string)
+    dh      0x0000        // pad
+  }
+
+  dh      fgm.Samus           // announce name fgm
+  db      bgm.Metroid_victory // victory jingle
+  db      0x00                // pad
+
+  { // Logo Struct (inlinded)
+    dw  logoDL.Metroid
+    dw  logoColor.Metroid
+    dw  logoZoom.Metroid
+  }
+
+  float32 1.03                // character model zoom
+  dw      ani.clapping        // losing animation
+  dw      vics.regular        // winning animations
+  db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)
+}

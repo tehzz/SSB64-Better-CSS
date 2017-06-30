@@ -1,0 +1,32 @@
+//bass-n64
+//--- 0x0D - Metal Mario CharInfo Structure ------------------------------------
+align(4)
+{
+  { // Name Struct (inlined)
+    dw      str.Mario     //*char base name string
+    float32 42.0          // base string x position
+    float32 187.0         // base string y position
+    float32 0.8125        // base string x scaling
+    float32 163.0         // X position of "WINS" string
+    float32 175.5         // Y position of "WINS" string
+    float32 44.0          // X position of additional text string
+    db      Pallet.monochrome   // Pallet of base name and additional text strings
+    db      AddText.metal       // Additional Text enum (points to string)
+    dh      0x0000        // pad
+  }
+
+  dh      fgm.MetalMario            // announce name fgm
+  db      bgm.Mario_victory         // victory jingle
+  db      0x00                      // pad
+
+  { // Logo Struct (inlinded)
+    dw  logoDL.Mario
+    dw  logoColor.Mario
+    dw  logoZoom.Mario
+  }
+
+  float32 1.25                // character model zoom
+  dw      ani.stunned         // losing animation
+  dw      vics.metal_mario    // winning animations
+  db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)
+}

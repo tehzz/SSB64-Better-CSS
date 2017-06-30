@@ -1,0 +1,30 @@
+//bass-n64
+//--- Text Color Pallet Enum ---------------------------------------------------
+scope Pallet {
+  constant red(0x0)
+  constant blue(0x1)
+  constant green(0x2)
+  constant lightBlue(0x3)
+  constant monochrome(0x4)
+  // After this, not built into ROM anymore
+  constant purple(0x5)
+}
+
+//--- Text Color Additional Pallets --------------------------------------------
+scope custom_pallets {
+  constant begin_custom(0x05)   // Pallets with an enum < this are on ROM
+
+  align(4)
+  arr: {    //(offset = enum - 0x5)
+    constant length(1)
+
+    // Pallets are really 6 bytes, not 4...
+    dw  0x8B008BFF      // Purple
+  }
+}
+align(4)
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included Pallet-enum.bass\n"
+}

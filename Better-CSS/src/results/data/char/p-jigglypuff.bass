@@ -1,0 +1,32 @@
+//bass-n64
+//--- 0x18 - Polygon Jigglypuff CharInfo Structure -----------------------------
+align(4)
+{
+  { // Name Struct (inlined)
+    dw      str.Jigglypuff  //*char base name string
+    float32 22.0            // base string x position
+    float32 187.0           // base string y position
+    float32 0.625           // base string x scaling
+    float32 175.0           // X position of "WINS" string
+    float32 175.5           // Y position of "WINS" string
+    float32 20.0            // X position of additional text string
+    db      Pallet.purple   // Pallet of base name and additional text strings
+    db      AddText.polygon // Additional Text enum (points to string)
+    dh      0x0000          // pad
+  }
+
+  dh      fgm.FightingPolygonTeam   // announce name fgm
+  db      bgm.Beta_victory          // victory jingle
+  db      0x00                      // pad
+
+  { // Logo Struct (inlined)
+    dw  logoDL.SmashBros
+    dw  logoColor.SmashBros
+    dw  logoZoom.SmashBros
+  }
+
+  float32 1.26                // character model zoom
+  dw      ani.stunned         // losing animation
+  dw      vics.polygon        // winning animations
+  db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)
+}

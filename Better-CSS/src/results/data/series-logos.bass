@@ -1,0 +1,70 @@
+//bass-n64
+//--- Custom Smash Series Logo Display List ------------------------------------
+align(16)
+scope smashlogo {
+  include "dl/smash_logo29.bass"
+
+  align(8)
+  footer:
+    dw  0x00000000, 0x00000000    // bank?, *DisplayList
+    float32 219, 645,   0         //x, y, z pos
+    float32   0,   0,   0         //x, y, z rotation
+    float32   1,   1,   1         //x, y, z scale
+    dw  0x00000001, displaylist
+    float32   0,   0,   0
+    float32   0,   0,   0
+    float32   1,   1,   1
+    dw  0x00000012, 0x00000000
+    float32   0,   0,   0
+    float32   0,   0,   0
+    float32   0,   0,   0
+}
+align(4)
+
+//--- Series Logos Constants for Offsets in File 0035 or Pointers---------------=
+scope logoDL {
+  constant Mario(0x0990)
+  constant Starfox(0x21D0)
+  constant DK(0x1348)
+  constant Metroid(0x1860)
+  constant Zelda(0x2520)
+  constant Yoshi(0x2F10)
+  constant Fzero(0x3828)
+  constant Kirby(0x3E68)
+  constant Pokemon(0x4710)
+  constant Earthbound(0x5A00)
+  constant SmashBros(smashlogo.footer)
+}
+
+scope logoColor {
+  constant Mario(0x0000)
+  constant Starfox(0x1940)
+  constant DK(0x0B00)
+  constant Metroid(0x1470)
+  constant Zelda(0x22B0)
+  constant Yoshi(0x2690)
+  constant Fzero(0x2FF0)
+  constant Kirby(0x3900)
+  constant Pokemon(0x3F40)
+  constant Earthbound(0x4840)
+  constant SmashBros(Pokemon)
+}
+
+scope logoZoom {
+  constant Mario(0x0A14)
+  constant Starfox(0x2254)
+  constant DK(0x13CC)
+  constant Metroid(0x18E4)
+  constant Zelda(0x25A4)
+  constant Yoshi(0x2F94)
+  constant Fzero(0x38AC)
+  constant Kirby(0x3EEC)
+  constant Pokemon(0x4794)
+  constant Earthbound(0x5A84)
+  constant SmashBros(Pokemon)
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included series-logos.bass\n"
+}

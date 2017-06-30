@@ -1,0 +1,46 @@
+//bass-n64
+//--- BGM Index Constants for Easy Reference -----------------------------------
+// These are the victory jingles (they are series sounds fx)
+scope bgm {
+  constant Mario_victory(0x0C)
+  constant Starfox_victory(0x10)
+  constant DK_victory(0x0E)
+  constant Metroid_victory(0x0D)
+  constant Zelda_victory(0x15)
+  constant Yoshi_victory(0x12)
+  constant Fzero_victory(0x13)
+  constant Kirby_victory(0x0F)
+  constant Pokemon_victory(0x14)
+  constant Earthbound_victory(0x11)
+
+  constant Beta_victory(0x0B)         //unused victory jingle
+  constant Masterhand_intro(0x17)
+}
+
+//--- FGM Index Constants for Easy Reference -----------------------------------
+// These are the announcer saying a name (except for Master Hand)
+
+scope fgm {
+  constant Mario(0x01F3)
+  constant Fox(0x01E6)
+  constant DK(0x01E3)
+  constant Samus(0x0201)
+  constant Luigi(0x01F2)
+  constant Link(0x01F1)
+  constant Yoshi(0x0217)
+  constant CFalcon(0x01E5)
+  constant Kirby(0x01F0)
+  constant Pikachu(0x01FB)
+  constant Jigglypuff(0x01FC)
+  constant Ness(0x01F5)
+
+  constant Masterhand_laughter(0x01ED)
+  constant MetalMario(0x01CE)
+  constant FightingPolygonTeam(0x01E2)
+  constant GiantDK(0x01E9)
+}
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included bgm-fgm-def.bass\n"
+}

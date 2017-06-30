@@ -1,0 +1,57 @@
+//bass-n64
+scope str {
+  //--- Name String RAM Pointers -----------------------------------------------
+  constant Mario(0x801397D4)
+  constant Fox(0x801397DC)
+  constant DK(0x801397E0)
+  constant Samus(0x801397E4)
+  constant Luigi(0x801397EC)
+  constant Link(0x801397F8)
+  constant Yoshi(0x80139800)
+  constant CFalcon(0x80139808)
+  constant Kirby(0x80139818)
+  constant Pikachu(0x80139820)
+  constant Jigglypuff(0x8013982C)
+  constant Ness(0x80139838)
+  constant Wins(0x801397C8)
+  //--- Added Name Strings -----------------------------------------------------
+  align(4)
+  Master:
+    asciiz("MASTER")
+  Hand:
+    asciiz("HAND")
+  GiantDK:
+    asciiz("GIANT DK")
+  Polygon:
+    asciiz("POLYGON")
+  Metal:
+    asciiz("METAL")
+  Unknown:
+    asciiz("SOMEONE")
+  align(4)
+}
+
+//--- Additional Text Enum -----------------------------------------------------
+// If the name string has more than one line
+scope AddText {
+  constant null(0xFF)
+  constant polygon(0x00)
+  constant master(0x01)
+  constant metal(0x02)
+}
+
+//--- Additional Text Strings Pointer Array ------------------------------------
+align(4)
+scope addTextArr: {
+  constant length(3)
+
+  dw  str.Polygon   // 0x00
+  dw  str.Master    // 0x01
+  dw  str.Metal     // 0x02
+}
+align(4)
+
+// Verbose Print info [-d v on cli]
+if {defined v} {
+  print "Included strings.bass\n"
+}

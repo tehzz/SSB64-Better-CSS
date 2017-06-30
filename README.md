@@ -20,4 +20,4 @@ Put a big endian SSB-U rom into a new folder called 'ROM'. (Or just change the i
 This release seems to be bug free! Console and emulator play both seem to work well.
 
 ### Future Features?
-* Change CPU characters to unselectable variants by "dropping" the CPU token with a D-PAD
+* ~~Change CPU characters to unselectable variants by "dropping" the CPU token with a D-PAD~~
