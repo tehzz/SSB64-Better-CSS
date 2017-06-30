@@ -16,7 +16,9 @@
 //      char_bmg base
 // a0 : 0x0
 // a1 : BGM index
-
+//--- Called Routines -------------------------------------
+// ssb.playBGM(u32 distortion a0, u8 bgm-index a1)
+//=========================================================
 
 pushvar pc
 origin 0x1578CC
@@ -27,8 +29,9 @@ scope playVictoryTheme: {
             jal   getCharInfoPtr
             or    a0, r0, v0
   play_theme:
+            or    a0, r0, r0
             jal   fn.ssb.playBGM
-            lbu   a0, data.CharInfo.theme_bgm(v0)
+            lbu   a1, data.CharInfo.theme_bgm(v0)
   return:
             b     0x80138820            // built-in epilogue
             nop
