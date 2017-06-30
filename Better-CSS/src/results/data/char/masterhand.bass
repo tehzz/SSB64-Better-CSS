@@ -25,7 +25,7 @@ align(4)
     dw  logoZoom.SmashBros
   }
 
-  float32 0.5624              // character model zoom
+  float32 0.5625              // character model zoom
   dw      ani.MH_death_sparkling  // losing animation
   dw      vics.master_hand    // winning animations
   db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)

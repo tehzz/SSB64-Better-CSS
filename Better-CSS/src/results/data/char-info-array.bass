@@ -12,7 +12,7 @@ include "CharInfo-struct.bass"
 //-- CharInfo[] for all 0x1B characters ----------------------------------------
 align(4)
 scope charInfoArray: {
-  constant length(0x10)
+  constant length(0x1B)
 
   Mario:      // 0x00
     include "char/mario.bass"
@@ -46,6 +46,28 @@ scope charInfoArray: {
     include "char/p-mario.bass"
   P_Fox:      // 0x0F
     include "char/p-fox.bass"
+  P_DK:       // 0x10
+    include "char/p-dk.bass"
+  P_Samus:    // 0x11
+    include "char/p-samus.bass"
+  P_Luigi:    // 0x12
+    include "char/p-luigi.bass"
+  P_Link:     // 0x13
+    include "char/p-link.bass"
+  P_Yoshi:    // 0x14
+    include "char/p-yoshi.bass"
+  P_CFalcon:  // 0x15
+    include "char/p-cfalcon.bass"
+  P_Kibry:    // 0x16
+    include "char/p-kirby.bass"
+  P_Pikachu:  // 0x17
+    include "char/p-pikachu.bass"
+  P_Jigglypuff: // 0x18
+    include "char/p-jigglypuff.bass"
+  P_Ness:     // 0x19
+    include "char/p-ness.bass"
+  Giant_DK:   // 0x1A
+    include "char/giantdk.bass"
 }
 
 align(4)

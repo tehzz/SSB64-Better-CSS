@@ -1,10 +1,10 @@
 //bass-n64
-//--- 0x0F - Polygon Fox CharInfo Structure ------------------------------------
+//--- 0x19 - Polygon Ness CharInfo Structure -----------------------------------
 align(4)
 {
   { // Name Struct (inlined)
-    dw      str.Fox       //*char base name string
-    float32 60.0          // base string x position
+    dw      str.Ness      //*char base name string
+    float32 50.0          // base string x position
     float32 187.0         // base string y position
     float32 0.8125        // base string x scaling
     float32 175.0         // X position of "WINS" string
@@ -19,13 +19,13 @@ align(4)
   db      bgm.Beta_victory          // victory jingle
   db      0x00                      // pad
 
-  { // Logo Struct (inlined)
+  { // Logo Struct (inlinded)
     dw  logoDL.SmashBros
     dw  logoColor.SmashBros
     dw  logoZoom.SmashBros
   }
 
-  float32 1.15                // character model zoom
+  float32 1.30                // character model zoom
   dw      ani.stunned         // losing animation
   dw      vics.polygon        // winning animations
   db      0, 0, 0, 0          // player indicator graphic Y offset ([] four locations)

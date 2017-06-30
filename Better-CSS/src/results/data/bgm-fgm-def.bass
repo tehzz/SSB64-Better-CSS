@@ -37,6 +37,7 @@ scope fgm {
   constant Masterhand_laughter(0x01ED)
   constant MetalMario(0x01CE)
   constant FightingPolygonTeam(0x01E2)
+  constant GiantDK(0x01E9)
 }
 
 // Verbose Print info [-d v on cli]
